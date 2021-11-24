@@ -7,6 +7,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+
+
+#include <chrono>
+#include <thread>
+#include <iostream>
+
 #include "includes/structs.cc"
 #include "includes/variables.cc"
 #include "includes/background.cc"

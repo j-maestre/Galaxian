@@ -6,16 +6,39 @@ void CreateBackGround(){
 	for (int i = 0; i <N_NIEVE; i++) {
 		float x1 = 1 + rand()% ((ANCHO*3)-1);
  	  float y1 = 1 + rand()% ((ALTO*3)-1);
- 	  Snow copo ={x1,y1, x1+1, y1+1};
+		RGB color ={0,0,0};
+
+		int colorRandom = rand()%3;
+
+		switch (colorRandom) {
+			case 0:
+				color.r=180;
+			break;
+			case 1:
+				color.g=180;
+			break;
+			case 2:
+				color.b=180;
+			break;
+			default:
+				color.r=255;
+				color.g=255;
+				color.b=255;
+			break;
+
+		}
+
+ 	  Snow copo ={x1,y1, x1+1, y1+1, color};
 		if(rand()%4==1)copo.opaco=true;
 		background[i]=copo;
 	}
 }
 
 void MoveBackground(){
-	esat::DrawSetStrokeColor(255,255,255);
-	esat::DrawSetFillColor(255,255,255);
+
 	for (int i = 0; i <N_NIEVE; i++){
+		esat::DrawSetStrokeColor(background[i].color.r,background[i].color.g,background[i].color.b);
+		esat::DrawSetFillColor(background[i].color.r,background[i].color.g,background[i].color.b);
 
 		//Movemos el copo de nieve hacia abajo a la velocidad establecida
 		background[i].y1+=VELOCIDAD_FONDO;

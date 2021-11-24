@@ -15,7 +15,9 @@ int esat::main(int argc, char **argv) {
     	esat::DrawBegin();
     	esat::DrawClear(0,0,0);
 			MoveBackground();
-			Score();
+			Score(&max_score, score1, score2);
+			Credits(&credits);
+			Interfaz();
 
     	esat::DrawEnd();
     	//Control fps
