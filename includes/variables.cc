@@ -37,5 +37,7 @@ int xAlienRo = ANCHO*3;
 int xAlienRos = ANCHO*3;
 int xAlienVe = ANCHO*3;
 
+Enemigo enemigos[36];
+
 
 // esat::SpriteHandle logo = esat::SubSprite(spritesheet,0,843,843,132);

@@ -8,6 +8,7 @@ int esat::main(int argc, char **argv) {
 	WindowSetMouseVisibility(true);
 	CreateBackGround();
 	CreateSprites();
+	CreateEnemigos();
 	esat::DrawSetTextFont(FONT_PATH);
 
     while(esat::WindowIsOpened() && !esat::IsSpecialKeyDown(esat::kSpecialKey_Escape)) {
@@ -19,6 +20,7 @@ int esat::main(int argc, char **argv) {
 			Score(&max_score, score1, score2);
 			Credits(&credits);
 			Interfaz();
+			PrintEnemigos();
 
     	esat::DrawEnd();
     	//Control fps

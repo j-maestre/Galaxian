@@ -32,6 +32,7 @@ struct Enemigo{
 	int score;					//Puntuacion recibida al matarlo
 	int x;						//Posicion X
 	int y;						//Posicion Y
+	char type;
 	Disparo disparo;			//Disparo del enemigo
 	Explosion explosion;		//Explosion del enemigo
 	char direccion = 'R';		//Direccion horizontal en la que se mueve en el momento R|L|D
