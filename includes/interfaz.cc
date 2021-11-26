@@ -6,6 +6,16 @@ using std::copy;
 using std::this_thread::sleep_for;     //Bloquea la ejecucion del proceso actual durante al menos el tiempo especificado
 using namespace std::chrono_literals;  //Capacidad para acceder a las clases de la libreria crono
 
+void CreateSprites(){
+  spritesheet=esat::SpriteFromFile("./assets/sprites/spritesheet.png");
+  logo = esat::SubSprite(spritesheet,0,843,432,132);
+  flecha = esat::SubSprite(spritesheet,360,1106,23,22);
+  namcot = esat::SpriteFromFile("./assets/sprites/namcot.png");
+  alienAmarillo = esat::SubSprite(spritesheet,9,9,33,33);
+  alienRojo = esat::SubSprite(spritesheet,9,114,33,24);
+  alienRosa = esat::SubSprite(spritesheet,9,294,33,24);
+  alienVerde = esat::SubSprite(spritesheet,9,474,33,24);
+}
 
 string toString(int num) {
 	//Basic function to convert int to string
@@ -13,9 +23,9 @@ string toString(int num) {
 	return itoa (num,buffer,10);
 }
 
-void ResetColor(){
-    esat::DrawSetStrokeColor(255,255,255);
-    esat::DrawSetFillColor(255,255,255);
+void ResetColor(int r = 255,int g = 255,int b = 255){
+    esat::DrawSetStrokeColor(r,g,b);
+    esat::DrawSetFillColor(r,g,b);
 }
 
 void printScore(int x, int y, int num, RGB color){
@@ -87,7 +97,15 @@ void InsertCoin(int *credits){
   esat::DrawSetTextSize(15);
   esat::DrawSetStrokeColor(255,178,0);
   esat::DrawSetFillColor(255,178,0);
-  esat::DrawText(ANCHO/2,(ALTO*3)/1.3,"PUSH SPACE TO INSERT CREDITS");
+  esat::DrawText(ANCHO/2,(ALTO*3)/1.3 +70,"PUSH SPACE TO INSERT CREDITS");
+
+  //Logos
+  esat::DrawSprite(logo,(ANCHO*3)/4 -50,(ALTO*3)/5);
+  esat::DrawSprite(namcot,(ANCHO*3)/3 -30,(ALTO*3)/1.8);
+  ResetColor();
+  esat::DrawSetTextSize(20);
+  esat::DrawText((ANCHO*3)/4 -50,(ALTO*3)/1.4, "©1979 1984 NAMCO LTD.");
+  esat::DrawText((ANCHO*3)/4 -30,(ALTO*3)/1.4 +40, "ALL RIGHTS RESERVER");
 
   if(esat::IsSpecialKeyDown(esat::kSpecialKey_Space)){
     ++*credits;
@@ -103,13 +121,11 @@ bool Players(){
 
     //Si hay marcado 1 jugador, pintamos "1 player" en verde
     if(players==1){
-      esat::DrawSetStrokeColor(102,203,45);
-      esat::DrawSetFillColor(102,203,45);
-    }else{
-      esat::DrawSetStrokeColor(255,255,255);
-      esat::DrawSetFillColor(255,255,255);
+      esat::DrawSprite(flecha,(ANCHO*3)/3 -40, (ALTO*3)/2.5 +20);
     }
-    esat::DrawText((ANCHO*3)/3,(ALTO*3)/2.5, "1 PLAYER");
+    esat::DrawSetStrokeColor(181,107,233);
+    esat::DrawSetFillColor(181,107,233);
+    esat::DrawText((ANCHO*3)/3,(ALTO*3)/2.5 +40, "1 PLAYER");
 
     if(credits>1){
 
@@ -118,13 +134,12 @@ bool Players(){
 
       //Si hay marcados 2 jugadores, pintamos "2 players" en verde
       if(players==2){
-        esat::DrawSetStrokeColor(102,203,45);
-        esat::DrawSetFillColor(102,203,45);
-      }else{
-        esat::DrawSetStrokeColor(255,255,255);
-        esat::DrawSetFillColor(255,255,255);
+        esat::DrawSprite(flecha,(ANCHO*3)/3 -40, (ALTO*3)/2.5 +60);
       }
-      esat::DrawText((ANCHO*3)/3,(ALTO*3)/2.5 +40, "2 PLAYERS");
+
+      esat::DrawSetStrokeColor(181,107,233);
+      esat::DrawSetFillColor(181,107,233);
+      esat::DrawText((ANCHO*3)/3,(ALTO*3)/2.5 +80, "2 PLAYERS");
       ResetColor();
     };
 
@@ -148,18 +163,71 @@ esat::DrawSetTextSize(25);
   }else{
     frames_count++;
 
-  if(frames_count>=fps*1){
+  if(frames_count>=fps*1 || debug){
       esat::DrawText((ANCHO*3)/4-80,(ALTO*3)/3 , Intro_l1);
   }
-  if(frames_count >=fps*2){
+  if(frames_count >=fps*2 || debug){
       esat::DrawText((ANCHO*3)/4 -100,(ALTO*3)/3 +40, Intro_l2);
   }
 
-  if(frames_count>=fps*3){
-    esat::DrawSetStrokeColor(255,255,255);
-    esat::DrawSetFillColor(255,255,255);
+  if(frames_count>=fps*3 || debug){
+    ResetColor();
     esat::DrawSetTextSize(20);
     esat::DrawText((ANCHO*3)/5 -20 ,(ALTO*3)/2 -30, Score_title1);
+    
+  }
+
+  if(frames_count>=fps*4 || debug){
+    ResetColor(0, 238, 254);
+    esat::DrawText((ANCHO*3)/5 +60 ,(ALTO*3)/2 +10, Score_title2);
+  }
+
+//Tarda en llegar al final 3 segundos
+  if(frames_count>=fps*5 || debug){
+    if(xAlienAm > (ANCHO*3)/5 +10){
+      xAlienAm-=animationSpeed;
+    }
+    esat::DrawSprite(alienAmarillo,xAlienAm,(ALTO*3)/2 +40);
+    esat::DrawText(xAlienAm +90,(ALTO*3)/2 +60, "60");
+    //Pintar la puntuacion del enemigo en esta linea
+    esat::DrawSetTextSize(12);
+    esat::DrawText(xAlienAm +300,(ALTO*3)/2 +60, "PTS");
+    esat::DrawSetTextSize(25);
+  }
+  if(frames_count>=fps*8 || debug){
+    if(xAlienRo > (ANCHO*3)/5 +10){
+      xAlienRo-=animationSpeed;
+    }
+    esat::DrawSprite(alienRojo,xAlienRo,(ALTO*3)/2 +90);
+    esat::DrawText(xAlienRo +90,(ALTO*3)/2 +110, "50");
+
+    esat::DrawSetTextSize(12);
+    esat::DrawText(xAlienRo +300,(ALTO*3)/2 +110, "PTS");
+    esat::DrawSetTextSize(25);
+  }
+
+  if(frames_count>=fps*11 || debug){
+    if(xAlienRos > (ANCHO*3)/5 +10){
+      xAlienRos-=animationSpeed;
+    }
+    esat::DrawSprite(alienRosa,xAlienRos,(ALTO*3)/2 +140);
+    esat::DrawText(xAlienRos +90,(ALTO*3)/2 +160, "40");
+
+    esat::DrawSetTextSize(12);
+    esat::DrawText(xAlienRos +300,(ALTO*3)/2 +160, "PTS");
+    esat::DrawSetTextSize(25);
+  }
+
+  if(frames_count>=fps*14 || debug){
+    if(xAlienVe > (ANCHO*3)/5 +10){
+      xAlienVe-=animationSpeed;
+    }
+    esat::DrawSprite(alienVerde,xAlienVe,(ALTO*3)/2 +190);
+    esat::DrawText(xAlienVe +90,(ALTO*3)/2 +210, "30");
+
+    esat::DrawSetTextSize(12);
+    esat::DrawText(xAlienVe +300,(ALTO*3)/2 +210, "PTS");
+    esat::DrawSetTextSize(25);
   }
 
 

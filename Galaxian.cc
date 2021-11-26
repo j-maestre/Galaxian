@@ -7,6 +7,7 @@ int esat::main(int argc, char **argv) {
 	esat::WindowInit(ANCHO*3,ALTO*3);
 	WindowSetMouseVisibility(true);
 	CreateBackGround();
+	CreateSprites();
 	esat::DrawSetTextFont(FONT_PATH);
 
     while(esat::WindowIsOpened() && !esat::IsSpecialKeyDown(esat::kSpecialKey_Escape)) {
