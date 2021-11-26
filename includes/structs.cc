@@ -28,13 +28,27 @@ struct Disparo{
 
 };
 
-struct enemigo{
+struct Enemigo{
 	int score;					//Puntuacion recibida al matarlo
 	int x;						//Posicion X
 	int y;						//Posicion Y
 	Disparo disparo;			//Disparo del enemigo
 	Explosion explosion;		//Explosion del enemigo
-	char direccion = 'R';		//Direccion horizontal en la que se mueve en el momento R|L
+	char direccion = 'R';		//Direccion horizontal en la que se mueve en el momento R|L|D
+	bool descendiendo = false;  //Si el enemigo está descendiendo en parabola hacia el jugador
 	bool vivo = true;			//Vivo o muerto
 
+};
+
+struct Jugador{
+	int score;					//Puntuacion recibida al matarlo
+	int x;						//Posicion X
+	int y;						//Posicion Y
+	Disparo disparo;			//Disparo del enemigo
+	Explosion explosion;		//Explosion del enemigo
+	Enemigo enemigos[36];		//Enemigos que pertenencen al jugador
+	int vidas;					//Vidas disponibles
+	int puntuacion = 0;			//Puntuacion del jugador
+	char direccion = 'R';		//Direccion horizontal en la que se mueve en el momento R|L
+	bool vivo = true;			//Vivo o muerto
 };
