@@ -41,13 +41,12 @@ struct Enemigo{
 };
 
 struct Jugador{
-	int score;					//Puntuacion recibida al matarlo
 	int x;						//Posicion X
 	int y;						//Posicion Y
-	Disparo disparo;			//Disparo del enemigo
-	Explosion explosion;		//Explosion del enemigo
-	Enemigo enemigos[36];		//Enemigos que pertenencen al jugador
-	int vidas;					//Vidas disponibles
+	Disparo disparo;			//Disparo del jugador
+	Explosion explosion;		//Explosion del jugador
+	Enemigo enemigos[46];		//Enemigos que pertenencen al jugador
+	int vidas = 3;				//Vidas disponibles
 	int puntuacion = 0;			//Puntuacion del jugador
 	char direccion = 'R';		//Direccion horizontal en la que se mueve en el momento R|L
 	bool vivo = true;			//Vivo o muerto

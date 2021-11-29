@@ -13,8 +13,8 @@ int fps_count = 1;                                   //Contador de fps para las 
 Snow background[N_NIEVE];
 int score1 = 0, score2 = 0, max_score = 0;
 int frames_count = -1;
-int credits = 0, players = 1;
-int velocidad_enemigos = 1;
+int credits = 0, N_players = 1;
+int velocidad_enemigos = 1, velocidad_jugador = 5;
 char direccion_enemigos = 'R';                          //Direccion horizontal en la que se mueven los enemigos R|L
 
 
@@ -33,6 +33,8 @@ esat::SpriteHandle spritesheet;
 esat::SpriteHandle logo;
 esat::SpriteHandle flecha;
 esat::SpriteHandle namcot;
+esat::SpriteHandle player;
+esat::SpriteHandle playerDisparando;
 esat::SpriteHandle alienAmarillo;
 esat::SpriteHandle alienRojo;
 esat::SpriteHandle animacion_alienRojo [4];
@@ -51,7 +53,7 @@ int xAlienVe = ANCHO*3;
 
 int fps_count_start = 1;
 
-Jugador jugadores[2];
+Jugador players[2];
 Enemigo enemigos[46];
 
 

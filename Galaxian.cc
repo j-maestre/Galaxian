@@ -11,6 +11,7 @@ int esat::main(int argc, char **argv) {
 	CreateBackGround();
 	CreateSprites();
 	CreateEnemigos();
+	CreatePlayer();
 	debugEnemigos();
 	//End creating items
 
@@ -32,6 +33,7 @@ int esat::main(int argc, char **argv) {
 					start = Start();
 				}else{
 					//LLamar al jugador
+					PrintPlayer();
 				}
 
 			}

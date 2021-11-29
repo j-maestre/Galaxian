@@ -12,6 +12,8 @@ void CreateSprites(){
   logo = esat::SubSprite(spritesheet,0,843,432,132);
   flecha = esat::SubSprite(spritesheet,360,1106,23,22);
   namcot = esat::SpriteFromFile("./assets/sprites/namcot.png");
+  playerDisparando = esat::SubSprite(spritesheet,57,691,40,49); //Este sprite hay que pintarlo 12px mas abajo que el otro porque mide menos
+  player = esat::SubSprite(spritesheet,6,679,40,61);
   alienAmarillo = esat::SubSprite(spritesheet,9,9,33,33);
   alienRojo = esat::SubSprite(spritesheet,9,114,33,24);
   animacion_alienRojo[0] = esat::SubSprite(spritesheet,60,202,33,24);
@@ -130,10 +132,10 @@ bool Players(){
     esat::DrawSetTextSize(20);
 
     //Si pulsa arriba y tenemos almenos 1 credito, establecemos 1 jugador
-    if(esat::IsSpecialKeyDown(esat::kSpecialKey_Up))players = 1;
+    if(esat::IsSpecialKeyDown(esat::kSpecialKey_Up))N_players = 1;
 
-    //Si hay marcado 1 jugador, pintamos "1 player" en verde
-    if(players==1){
+  
+    if(N_players==1){
       esat::DrawSprite(flecha,(ANCHO*3)/3 -40, (ALTO*3)/2.5 +20);
     }
     esat::DrawSetStrokeColor(181,107,233);
@@ -143,10 +145,10 @@ bool Players(){
     if(credits>1){
 
       //Si pulsa abajo y tiene mas de 1 credito establecemos 2 jugadores
-      if(esat::IsSpecialKeyDown(esat::kSpecialKey_Down))players=2;
+      if(esat::IsSpecialKeyDown(esat::kSpecialKey_Down))N_players=2;
 
       //Si hay marcados 2 jugadores, pintamos "2 players" en verde
-      if(players==2){
+      if(N_players==2){
         esat::DrawSprite(flecha,(ANCHO*3)/3 -40, (ALTO*3)/2.5 +60);
       }
 
