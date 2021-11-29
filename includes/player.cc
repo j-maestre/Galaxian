@@ -6,7 +6,6 @@ void CreatePlayer(){
         players[i] = player;
     }
     
-    
 };
 
 void PrintPlayer(){
@@ -15,6 +14,8 @@ void PrintPlayer(){
     
     if(players[0].disparo.disparando){
         //Mostrar la bala
+        esat::DrawSprite(disparoPlayer,players[0].disparo.x+20,players[0].disparo.y-=velocidad_disparo_player);
+        if(players[0].disparo.y<=0)players[0].disparo.disparando = false;
     }
 
 
@@ -25,7 +26,10 @@ void PrintPlayer(){
         players[0].x-=velocidad_jugador;
     }
 
-    if(esat::IsSpecialKeyDown(esat::kSpecialKey_Space)){
+    if(esat::IsSpecialKeyDown(esat::kSpecialKey_Space) && !players[0].disparo.disparando){
         players[0].disparo.disparando = true;
+        players[0].disparo.x = players[0].x;
+        players[0].disparo.y = players[0].y;
+
     }
 }

@@ -14,7 +14,9 @@ Snow background[N_NIEVE];
 int score1 = 0, score2 = 0, max_score = 0;
 int frames_count = -1;
 int credits = 0, N_players = 1;
-int velocidad_enemigos = 1, velocidad_jugador = 5;
+int velocidad_enemigos = 1;
+int velocidad_jugador = 5;
+int velocidad_disparo_player = 15;
 char direccion_enemigos = 'R';                          //Direccion horizontal en la que se mueven los enemigos R|L
 
 
@@ -43,6 +45,7 @@ esat::SpriteHandle animacion_alienRosa [4];
 esat::SpriteHandle alienVerde;
 esat::SpriteHandle animacion_alienVerde [4];
 int animacion_selector = 0;
+esat::SpriteHandle disparoPlayer;
 
 //Animaciones menu
 int animationSpeed = 3;

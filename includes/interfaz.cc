@@ -14,6 +14,7 @@ void CreateSprites(){
   namcot = esat::SpriteFromFile("./assets/sprites/namcot.png");
   playerDisparando = esat::SubSprite(spritesheet,57,691,40,49); //Este sprite hay que pintarlo 12px mas abajo que el otro porque mide menos
   player = esat::SubSprite(spritesheet,6,679,40,61);
+  disparoPlayer = esat::SubSprite(spritesheet,114,676,4,11);
   alienAmarillo = esat::SubSprite(spritesheet,9,9,33,33);
   alienRojo = esat::SubSprite(spritesheet,9,114,33,24);
   animacion_alienRojo[0] = esat::SubSprite(spritesheet,60,202,33,24);
@@ -30,6 +31,7 @@ void CreateSprites(){
   animacion_alienVerde[1] = esat::SubSprite(spritesheet,108,564,33,24);
   animacion_alienVerde[2] = esat::SubSprite(spritesheet,60,564,33,24);
   animacion_alienVerde[3] = esat::SubSprite(spritesheet,216,564,33,24);
+  
 }
 
 string toString(int num) {

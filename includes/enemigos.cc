@@ -139,3 +139,18 @@ void debugEnemigos(){
   }
   
 }
+
+
+void CalcularDescenso(){
+  //Comprobar cuales pueden descender y cuales no (?)
+}
+
+void Disparoenemigos(){
+  for (int i = 0; i < N_ENEMIGOS; i++){
+    //Los enemigos disparan todo el rato siempre y cuando sea posible (hasta que llega hasta abajo)
+    if(enemigos[i].descendiendo){
+      
+    }
+  }
+  
+}
