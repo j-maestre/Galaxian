@@ -35,7 +35,6 @@ struct Enemigo{
 	char type;
 	Disparo disparo;			//Disparo del enemigo
 	Explosion explosion;		//Explosion del enemigo
-	char direccion = 'R';		//Direccion horizontal en la que se mueve en el momento R|L|D
 	bool descendiendo = false;  //Si el enemigo está descendiendo en parabola hacia el jugador
 	bool vivo = true;			//Vivo o muerto
 

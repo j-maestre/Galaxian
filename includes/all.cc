@@ -18,3 +18,4 @@
 #include "includes/background.cc"
 #include "includes/interfaz.cc"
 #include "includes/enemigos.cc"
+#include "includes/player.cc"

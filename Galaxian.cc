@@ -6,9 +6,14 @@ int esat::main(int argc, char **argv) {
 
 	esat::WindowInit(ANCHO*3,ALTO*3);
 	WindowSetMouseVisibility(true);
+
+	//Creating items
 	CreateBackGround();
 	CreateSprites();
 	CreateEnemigos();
+	debugEnemigos();
+	//End creating items
+
 	esat::DrawSetTextFont(FONT_PATH);
 
     while(esat::WindowIsOpened() && !esat::IsSpecialKeyDown(esat::kSpecialKey_Escape)) {
@@ -19,8 +24,17 @@ int esat::main(int argc, char **argv) {
 			MoveBackground();
 			Score(&max_score, score1, score2);
 			Credits(&credits);
-			Interfaz();
-			PrintEnemigos();
+			if(!interfaz){
+				interfaz = Interfaz();
+			}else{
+				PrintEnemigos();
+				if(!start){
+					start = Start();
+				}else{
+					//LLamar al jugador
+				}
+
+			}
 
     	esat::DrawEnd();
     	//Control fps
@@ -29,6 +43,11 @@ int esat::main(int argc, char **argv) {
     	}while((current_time-last_time)<=1000.0/fps);
     	esat::WindowFrame();
   }
+
+
+  ReleaseSprites();
   esat::WindowDestroy();
+//   printf("END\n");
+//   debugEnemigos();
   return 0;
 }

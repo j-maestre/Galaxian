@@ -7,14 +7,27 @@ using std::this_thread::sleep_for;     //Bloquea la ejecucion del proceso actual
 using namespace std::chrono_literals;  //Capacidad para acceder a las clases de la libreria crono
 
 void CreateSprites(){
+  //Enemigos 24x24
   spritesheet=esat::SpriteFromFile("./assets/sprites/spritesheet.png");
   logo = esat::SubSprite(spritesheet,0,843,432,132);
   flecha = esat::SubSprite(spritesheet,360,1106,23,22);
   namcot = esat::SpriteFromFile("./assets/sprites/namcot.png");
   alienAmarillo = esat::SubSprite(spritesheet,9,9,33,33);
   alienRojo = esat::SubSprite(spritesheet,9,114,33,24);
+  animacion_alienRojo[0] = esat::SubSprite(spritesheet,60,202,33,24);
+  animacion_alienRojo[1] = esat::SubSprite(spritesheet,108,202,33,24);
+  animacion_alienRojo[2] = esat::SubSprite(spritesheet,60,202,33,24);
+  animacion_alienRojo[3] = esat::SubSprite(spritesheet,216,202,33,24);
   alienRosa = esat::SubSprite(spritesheet,9,294,33,24);
+  animacion_alienRosa[0] = esat::SubSprite(spritesheet,60,382,33,24);
+  animacion_alienRosa[1] = esat::SubSprite(spritesheet,108,382,33,24);
+  animacion_alienRosa[2] = esat::SubSprite(spritesheet,60,382,33,24);
+  animacion_alienRosa[3] = esat::SubSprite(spritesheet,216,382,33,24);
   alienVerde = esat::SubSprite(spritesheet,9,474,33,24);
+  animacion_alienVerde[0] = esat::SubSprite(spritesheet,60,564,33,24);
+  animacion_alienVerde[1] = esat::SubSprite(spritesheet,108,564,33,24);
+  animacion_alienVerde[2] = esat::SubSprite(spritesheet,60,564,33,24);
+  animacion_alienVerde[3] = esat::SubSprite(spritesheet,216,564,33,24);
 }
 
 string toString(int num) {
@@ -230,10 +243,52 @@ esat::DrawSetTextSize(25);
     esat::DrawSetTextSize(25);
   }
 
+  if(frames_count>=fps*17 || debug){
+    if(esat::IsSpecialKeyDown(esat::kSpecialKey_Space)){
+      return true;
+    }
+  }
 
 }
 
 
 
   return false;
+}
+
+bool Start(){
+  ResetColor(255,0,0);
+  fps_count_start++;
+  if(fps_count_start<fps*3){
+    esat::DrawText(250,450,"PLAYER ONE");
+  }else{
+    return true;
+  }
+
+  return false;
+}
+
+
+void ReleaseSprites(){
+  esat::SpriteRelease(spritesheet);
+  esat::SpriteRelease(logo);
+  esat::SpriteRelease(flecha);
+  esat::SpriteRelease(namcot);
+  esat::SpriteRelease(alienAmarillo);
+  esat::SpriteRelease(alienRojo);
+  esat::SpriteRelease(alienRosa);
+  esat::SpriteRelease(alienVerde);
+  esat::SpriteRelease(animacion_alienRojo[0]);
+  esat::SpriteRelease(animacion_alienRojo[1]);
+  esat::SpriteRelease(animacion_alienRojo[2]);
+  esat::SpriteRelease(animacion_alienRojo[3]);
+  esat::SpriteRelease(animacion_alienVerde[0]);
+  esat::SpriteRelease(animacion_alienVerde[1]);
+  esat::SpriteRelease(animacion_alienVerde[2]);
+  esat::SpriteRelease(animacion_alienVerde[3]);
+  esat::SpriteRelease(animacion_alienRosa[0]);
+  esat::SpriteRelease(animacion_alienRosa[1]);
+  esat::SpriteRelease(animacion_alienRosa[2]);
+  esat::SpriteRelease(animacion_alienRosa[3]);
+  // esat::SpriteRelease(sprite);
 }
