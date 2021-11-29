@@ -12,7 +12,7 @@ int esat::main(int argc, char **argv) {
 	CreateSprites();
 	CreateEnemigos();
 	CreatePlayer();
-	debugEnemigos();
+	// debugEnemigos();
 	//End creating items
 
 	esat::DrawSetTextFont(FONT_PATH);
@@ -23,17 +23,22 @@ int esat::main(int argc, char **argv) {
     	esat::DrawBegin();
     	esat::DrawClear(0,0,0);
 			MoveBackground();
-			Score(&max_score, score1, score2);
-			Credits(&credits);
+			Score();
+
 			if(!interfaz){
 				interfaz = Interfaz();
+				Credits(&credits);
 			}else{
 				PrintEnemigos();
 				if(!start){
 					start = Start();
+
 				}else{
 					//LLamar al jugador
 					PrintPlayer();
+					Vidas();
+					ColisionDispEnemigos();
+					CalcularDescenso();
 				}
 
 			}

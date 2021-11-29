@@ -12,6 +12,7 @@ void CreateSprites(){
   logo = esat::SubSprite(spritesheet,0,843,432,132);
   flecha = esat::SubSprite(spritesheet,360,1106,23,22);
   namcot = esat::SpriteFromFile("./assets/sprites/namcot.png");
+  vidas = esat::SubSprite(spritesheet,382,712,21,28);
   playerDisparando = esat::SubSprite(spritesheet,57,691,40,49); //Este sprite hay que pintarlo 12px mas abajo que el otro porque mide menos
   player = esat::SubSprite(spritesheet,6,679,40,61);
   disparoPlayer = esat::SubSprite(spritesheet,114,676,4,11);
@@ -31,7 +32,11 @@ void CreateSprites(){
   animacion_alienVerde[1] = esat::SubSprite(spritesheet,108,564,33,24);
   animacion_alienVerde[2] = esat::SubSprite(spritesheet,60,564,33,24);
   animacion_alienVerde[3] = esat::SubSprite(spritesheet,216,564,33,24);
-  
+  explosion_alien[0] = esat::SubSprite(spritesheet,154,647,48,48);
+  explosion_alien[1] = esat::SubSprite(spritesheet,214,653,48,48);
+  explosion_alien[2] = esat::SubSprite(spritesheet,262,644,48,48);
+  explosion_alien[3] = esat::SubSprite(spritesheet,307,641,48,48);
+
 }
 
 string toString(int num) {
@@ -66,14 +71,20 @@ void printScore(int x, int y, int num, RGB color){
 		strcat(num_toPrint,num_toChar);
 
 		//Añadimos un "0" al principio
-	}else if(strlen(num_toChar) == 3) {
-		strcat(num_toPrint, "0");
-		strcat(num_toPrint,num_toChar);
-
-		//Si el score supera los 999, se pintará genericamente
 	}else{
 		strcat(num_toPrint, num_toChar);
 	}
+
+//Hasta 3 ceros a la izquierda
+  // else if(strlen(num_toChar) == 3) {
+		// strcat(num_toPrint, "0");
+		// strcat(num_toPrint,num_toChar);
+
+		// Si el score supera los 999, se pintará genericamente
+	// }
+
+
+
 	//Pintamos el array de char
   esat::DrawSetStrokeColor(color.r,color.g,color.b);
   esat::DrawSetFillColor(color.r,color.g,color.b);
@@ -82,8 +93,7 @@ void printScore(int x, int y, int num, RGB color){
 }
 
 void Credits(int *credits){
-  esat::DrawSetStrokeColor(0,238,254);
-  esat::DrawSetFillColor(0,238,254);
+  ResetColor(0,238,254);
 
   string num_toString = toString(*credits);
   const char *num_toChar = num_toString.c_str();
@@ -91,21 +101,22 @@ void Credits(int *credits){
   char credits_to_print[] = "CREDIT \0";
   strcat(credits_to_print, num_toChar);
 
+  esat::DrawSetTextSize(18);
   esat::DrawText(60, (ALTO*3-60), credits_to_print);
 }
 
 
-void Score(int *max_score, int score = 0, int score2 = 0){
+void Score(){
   ResetColor();
   esat::DrawSetTextSize(18);
   esat::DrawText(60, 40, "1 UP");
   esat::DrawText((ANCHO*3)/2 -50, 40, "HIGH SCORE");
-  if(score>*max_score)*max_score=score;
-  if(score2>*max_score)*max_score=score2;
+  if(score1>max_score)max_score=score1;
+  if(score2>max_score)max_score=score2;
 
   RGB color = {255, 0, 0};
-  printScore((ANCHO*3)/2 +40,70,*max_score, color);
-  printScore((ANCHO*3)/6 -40,70,score, color);
+  printScore((ANCHO*3)/2 +40,70,max_score, color);
+  printScore((ANCHO*3)/6 -40,70,score1, color);
 
 }
 
@@ -136,7 +147,7 @@ bool Players(){
     //Si pulsa arriba y tenemos almenos 1 credito, establecemos 1 jugador
     if(esat::IsSpecialKeyDown(esat::kSpecialKey_Up))N_players = 1;
 
-  
+
     if(N_players==1){
       esat::DrawSprite(flecha,(ANCHO*3)/3 -40, (ALTO*3)/2.5 +20);
     }
@@ -191,7 +202,7 @@ esat::DrawSetTextSize(25);
     ResetColor();
     esat::DrawSetTextSize(20);
     esat::DrawText((ANCHO*3)/5 -20 ,(ALTO*3)/2 -30, Score_title1);
-    
+
   }
 
   if(frames_count>=fps*4 || debug){
@@ -199,15 +210,31 @@ esat::DrawSetTextSize(25);
     esat::DrawText((ANCHO*3)/5 +60 ,(ALTO*3)/2 +10, Score_title2);
   }
 
+  score_frames_count++;
+
 //Tarda en llegar al final 3 segundos
   if(frames_count>=fps*5 || debug){
     if(xAlienAm > (ANCHO*3)/5 +10){
       xAlienAm-=animationSpeed;
     }
+
+
+    //Pintamos el sprite del alien correspondiente
     esat::DrawSprite(alienAmarillo,xAlienAm,(ALTO*3)/2 +40);
+
+    //Pintamos el convoy board
     esat::DrawText(xAlienAm +90,(ALTO*3)/2 +60, "60");
-    //Pintar la puntuacion del enemigo en esta linea
+
+    //Pintamos la puntuacion del enemigo
+    esat::DrawSetTextSize(18);
+    RGB colorScore ={0, 238, 254};
+
+    //Funcion de parpadeo cada 0.5 segundos
+    if(score_frames_count>=fps*0.5) printScore(xAlienAm +200,(ALTO*3)/2 +60,score_yellow[cont_score_yellow],colorScore);
+    ResetColor(0, 238, 254);
     esat::DrawSetTextSize(12);
+
+    //Pintamos el indicador de puntos
     esat::DrawText(xAlienAm +300,(ALTO*3)/2 +60, "PTS");
     esat::DrawSetTextSize(25);
   }
@@ -217,6 +244,8 @@ esat::DrawSetTextSize(25);
     }
     esat::DrawSprite(alienRojo,xAlienRo,(ALTO*3)/2 +90);
     esat::DrawText(xAlienRo +90,(ALTO*3)/2 +110, "50");
+    esat::DrawSetTextSize(18);
+    if(score_frames_count>=fps*0.5)esat::DrawText(xAlienRo + 200,(ALTO*3)/2 +110, "100");
 
     esat::DrawSetTextSize(12);
     esat::DrawText(xAlienRo +300,(ALTO*3)/2 +110, "PTS");
@@ -229,7 +258,8 @@ esat::DrawSetTextSize(25);
     }
     esat::DrawSprite(alienRosa,xAlienRos,(ALTO*3)/2 +140);
     esat::DrawText(xAlienRos +90,(ALTO*3)/2 +160, "40");
-
+    esat::DrawSetTextSize(18);
+    if(score_frames_count>=fps*0.5)esat::DrawText(xAlienRos + 200,(ALTO*3)/2 +160, "80");
     esat::DrawSetTextSize(12);
     esat::DrawText(xAlienRos +300,(ALTO*3)/2 +160, "PTS");
     esat::DrawSetTextSize(25);
@@ -241,10 +271,25 @@ esat::DrawSetTextSize(25);
     }
     esat::DrawSprite(alienVerde,xAlienVe,(ALTO*3)/2 +190);
     esat::DrawText(xAlienVe +90,(ALTO*3)/2 +210, "30");
+    esat::DrawSetTextSize(18);
+    if(score_frames_count>=fps*0.5){
+      esat::DrawText(xAlienVe +200,(ALTO*3)/2 +210, "60");
 
+
+
+    }
     esat::DrawSetTextSize(12);
     esat::DrawText(xAlienVe +300,(ALTO*3)/2 +210, "PTS");
     esat::DrawSetTextSize(25);
+
+
+  }
+
+  //Si el frame_count ha llegado al limite, lo reiniciamos a 0
+  if(score_frames_count>=fps){
+    score_frames_count = 0;
+    cont_score_yellow <3?cont_score_yellow++:cont_score_yellow = 0;
+
   }
 
   if(frames_count>=fps*17 || debug){
@@ -273,6 +318,12 @@ bool Start(){
 }
 
 
+void Vidas(){
+  for (int i = 0; i < players[0].vidas-1; i++) {
+    esat::DrawSprite(vidas,(i+1)*30,ALTO*3 -50);
+  }
+}
+
 void ReleaseSprites(){
   esat::SpriteRelease(spritesheet);
   esat::SpriteRelease(logo);
@@ -294,5 +345,9 @@ void ReleaseSprites(){
   esat::SpriteRelease(animacion_alienRosa[1]);
   esat::SpriteRelease(animacion_alienRosa[2]);
   esat::SpriteRelease(animacion_alienRosa[3]);
+  esat::SpriteRelease(explosion_alien[0]);
+  esat::SpriteRelease(explosion_alien[1]);
+  esat::SpriteRelease(explosion_alien[2]);
+  esat::SpriteRelease(explosion_alien[3]);
   // esat::SpriteRelease(sprite);
 }

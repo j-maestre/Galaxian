@@ -19,3 +19,4 @@
 #include "includes/interfaz.cc"
 #include "includes/enemigos.cc"
 #include "includes/player.cc"
+#include "includes/colisiones.cc"
