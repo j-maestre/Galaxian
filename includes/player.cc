@@ -8,28 +8,51 @@ void CreatePlayer(){
     
 };
 
-void PrintPlayer(){
-    //Mostramos un sprite u otro dependiendo de si está disparando o no
-    players[0].disparo.disparando?esat::DrawSprite(playerDisparando,players[0].x,players[0].y+12):esat::DrawSprite(player,players[0].x,players[0].y);
+void ExplosionPlayer(){
+    fps_count_explosion_player++;
+
+    //Cada 0'25 segundos muestro una animacion de la explosion
+    if(fps_count_explosion_player>fps*(explosion_selector*0.1))explosion_selector++;
+    if(explosion_selector<4){
+        esat::DrawSprite(playerExplosion[explosion_selector],players[player_actual].explosion.x,players[player_actual].explosion.y);
+
+        //Cuando ya he mostrado todas las explosiones, dejo de explotar y reinicio las variables
+    }else if(explosion_selector>=4){
+        explosion_selector=0;
+        fps_count_explosion_player = 0;
+        players[player_actual].explosion.explotando = false;
+    }
+    // esat::DrawSprite();
     
-    if(players[0].disparo.disparando){
-        //Mostrar la bala
-        esat::DrawSprite(disparoPlayer,players[0].disparo.x+20,players[0].disparo.y-=velocidad_disparo_player);
-        if(players[0].disparo.y<=0)players[0].disparo.disparando = false;
-    }
-
-
-    if(esat::IsSpecialKeyPressed(esat::kSpecialKey_Right)&& (players[0].x)+40<ANCHO*3){
-        players[0].x+=velocidad_jugador;
-    }
-    if(esat::IsSpecialKeyPressed(esat::kSpecialKey_Left) && players[0].x>0){
-        players[0].x-=velocidad_jugador;
-    }
-
-    if(esat::IsSpecialKeyDown(esat::kSpecialKey_Space) && !players[0].disparo.disparando){
-        players[0].disparo.disparando = true;
-        players[0].disparo.x = players[0].x;
-        players[0].disparo.y = players[0].y;
-
-    }
+    
 }
+
+void PrintPlayer(){
+    if(!players[player_actual].explosion.explotando){
+        //Mostramos un sprite u otro dependiendo de si está disparando o no
+        players[player_actual].disparo.disparando?esat::DrawSprite(playerDisparando,players[player_actual].x,players[player_actual].y+12):esat::DrawSprite(player,players[player_actual].x,players[player_actual].y);
+        
+        if(players[player_actual].disparo.disparando){
+            //Mostrar la bala
+            esat::DrawSprite(disparoPlayer,players[player_actual].disparo.x+20,players[player_actual].disparo.y-=velocidad_disparo_player);
+            if(players[player_actual].disparo.y<=0)players[player_actual].disparo.disparando = false;
+        }
+
+
+        if(esat::IsSpecialKeyPressed(esat::kSpecialKey_Right)&& (players[player_actual].x)+40<ANCHO*3){
+            players[player_actual].x+=velocidad_jugador;
+        }
+        if(esat::IsSpecialKeyPressed(esat::kSpecialKey_Left) && players[player_actual].x>0){
+            players[player_actual].x-=velocidad_jugador;
+        }
+
+        if(esat::IsSpecialKeyDown(esat::kSpecialKey_Space) && !players[player_actual].disparo.disparando){
+            players[player_actual].disparo.disparando = true;
+            players[player_actual].disparo.x = players[player_actual].x;
+            players[player_actual].disparo.y = players[player_actual].y;
+
+        }
+    }
+    if(players[player_actual].explosion.explotando)ExplosionPlayer();
+}
+

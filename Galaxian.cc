@@ -12,7 +12,7 @@ int esat::main(int argc, char **argv) {
 	CreateSprites();
 	CreateEnemigos();
 	CreatePlayer();
-	// debugEnemigos();
+	//debugEnemigos();
 	//End creating items
 
 	esat::DrawSetTextFont(FONT_PATH);
@@ -41,7 +41,7 @@ int esat::main(int argc, char **argv) {
 					ComprobarFila();
 					//Solo pueden atacar los que están en las esquinas
 					PuedeAtacar();
-					ColisionDispEnemigos();
+					CheckColisiones();
 					CalcularDescenso();
 				}
 

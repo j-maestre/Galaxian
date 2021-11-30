@@ -16,6 +16,11 @@ void CreateSprites(){
   playerDisparando = esat::SubSprite(spritesheet,57,691,40,49); //Este sprite hay que pintarlo 12px mas abajo que el otro porque mide menos
   player = esat::SubSprite(spritesheet,6,679,40,61);
   disparoPlayer = esat::SubSprite(spritesheet,114,676,4,11);
+  playerExplosion[0] = esat::SubSprite(spritesheet,6,750,87,84);
+  playerExplosion[1] = esat::SubSprite(spritesheet,111,756,75,78);
+  playerExplosion[2] = esat::SubSprite(spritesheet,210,756,81,75);
+  playerExplosion[3] = esat::SubSprite(spritesheet,318,762,69,63);
+  disparoEnemigo = esat::SubSprite(spritesheet,267,215,4,12);
   alienAmarillo = esat::SubSprite(spritesheet,9,9,33,33);
   alienRojo = esat::SubSprite(spritesheet,9,114,33,24);
   animacion_alienRojo[0] = esat::SubSprite(spritesheet,60,202,33,24);
@@ -319,7 +324,7 @@ bool Start(){
 
 
 void Vidas(){
-  for (int i = 0; i < players[0].vidas-1; i++) {
+  for (int i = 0; i < players[player_actual].vidas-1; i++) {
     esat::DrawSprite(vidas,(i+1)*30,ALTO*3 -50);
   }
 }
@@ -328,7 +333,12 @@ void ReleaseSprites(){
   esat::SpriteRelease(spritesheet);
   esat::SpriteRelease(logo);
   esat::SpriteRelease(flecha);
+  esat::SpriteRelease(vidas);
+  esat::SpriteRelease(playerDisparando);
+  esat::SpriteRelease(player);
+  esat::SpriteRelease(disparoPlayer);
   esat::SpriteRelease(namcot);
+  esat::SpriteRelease(disparoEnemigo);
   esat::SpriteRelease(alienAmarillo);
   esat::SpriteRelease(alienRojo);
   esat::SpriteRelease(alienRosa);
@@ -349,5 +359,9 @@ void ReleaseSprites(){
   esat::SpriteRelease(explosion_alien[1]);
   esat::SpriteRelease(explosion_alien[2]);
   esat::SpriteRelease(explosion_alien[3]);
+  esat::SpriteRelease(playerExplosion[0]);
+  esat::SpriteRelease(playerExplosion[1]);
+  esat::SpriteRelease(playerExplosion[2]);
+  esat::SpriteRelease(playerExplosion[3]);
   // esat::SpriteRelease(sprite);
 }

@@ -48,6 +48,7 @@ struct Enemigo{
 	int descensoX = 0;
 	int descensoY = 0;
 	bool vivo = true;							//Vivo o muerto
+	int index_animacion = rand()%4;
 
 };
 

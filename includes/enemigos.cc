@@ -68,9 +68,11 @@ void CreateEnemigos(){
     Disparo disparo;
     Explosion explosion={0,0,false};
     Enemigo enemigo={score,x,y,type,disparo,explosion};
+    //players[player_actual].enemigos[i] = enemigo;
     enemigos[i] = enemigo;
-
   }
+
+  //players[player_actual].enemigos = enemigos;
 }
 
 void ExplosionEnemigos(int posicion){
@@ -91,13 +93,27 @@ void ExplosionEnemigos(int posicion){
 }
 
 
+void Disparar(int index){
+  if(!enemigos[index].disparo.disparando && enemigos[index].vivo){
+    enemigos[index].disparo.x = enemigos[index].descensoX;
+    enemigos[index].disparo.y = enemigos[index].descensoY;
+    enemigos[index].disparo.disparando = true;
+  }else{
+    //Empiezo a disparar
+    
+    esat::DrawSprite(disparoEnemigo,enemigos[index].disparo.x,enemigos[index].disparo.y+=velocidad_enemigos_disparo);
+    if(enemigos[index].disparo.y>=ALTO*3)enemigos[index].disparo.disparando=false;
+  }
+}
+
+
 void Descender(int index, esat::SpriteHandle sprite){
   if(enemigos[index].vivo && !enemigos[index].fin_descenso){
-
+    //velocidad_enemigos_descenso--;
     enemigos[index].descensoY+=velocidad_enemigos_descenso;
 
     //Si el jugador (x+100 para la parabola) está a la derecha del alien, lo movemos hacia él
-    if(enemigos[index].descensoX < players[0].x+100 && enemigos[index].direccion_descenso == 'R'){
+    if(enemigos[index].descensoX < players[player_actual].x+100 && enemigos[index].direccion_descenso == 'R'){
       //A medida que se vaya acercando, vamos disminuyendo la velocidad para la sensacion de una velocidad exponencial y cambiamos el sprite 
 
       enemigos[index].descensoX+= velocidad_enemigos_descenso_x;
@@ -108,7 +124,7 @@ void Descender(int index, esat::SpriteHandle sprite){
     }
     
     //Lo mismo para la parte izquierda
-    if(enemigos[index].descensoX > players[0].x-100 && enemigos[index].direccion_descenso == 'L'){
+    if(enemigos[index].descensoX > players[player_actual].x-100 && enemigos[index].direccion_descenso == 'L'){
       enemigos[index].descensoX-= velocidad_enemigos_descenso_x;
     }else{
       enemigos[index].direccion_descenso = 'R';
@@ -122,12 +138,12 @@ void Descender(int index, esat::SpriteHandle sprite){
       enemigos[index].descensoY = 50;
     }
 
-  }
+  };
 
     
     //Si ya he acabado de descender, lo vuelvo al sitio
     if(enemigos[index].fin_descenso){
-      printf("VOLVIENDO AL SITIO\n");
+
       bool al_sitioY = false;
       bool al_sitioX = false;
 
@@ -135,18 +151,18 @@ void Descender(int index, esat::SpriteHandle sprite){
         enemigos[index].descensoY+=velocidad_enemigos_descenso;
         al_sitioY = false;
       }else{
-        printf("Y al sitio \n");
         al_sitioY = true;
       }
 
       if(enemigos[index].descensoX > enemigos[index].x){
         enemigos[index].descensoX-=velocidad_enemigos_descenso_x;
         al_sitioX = false;
-      }else if(enemigos[index].descensoX <= enemigos[index].x){
+
+      }
+      if(enemigos[index].descensoX < enemigos[index].x){
         enemigos[index].descensoX+=velocidad_enemigos_descenso_x;
         al_sitioX = false;
       }else{
-        printf("X al sitio \n");
         al_sitioX = true;
       }
 
@@ -155,36 +171,38 @@ void Descender(int index, esat::SpriteHandle sprite){
       if(al_sitioY && al_sitioX){
         enemigos[index].descendiendo = false;
         enemigos[index].fin_descenso = false;
+        enemigos[index].descensoX = -20;
+        enemigos[index].descensoY = -20;
       }
 
 
     }
   
-}
+};
 
 void PrintEnemigos(){
-  // fps_count = (fps_count+1)%5;
+
   fps_count<1000?++fps_count:fps_count=0;
-  // printf("%d ",fps_count);
-
-  //Cada 10 frames cambiamos el sprite del alien para la animacion
-
-  if(fps_count%15 == 0){
-    animacion_selector>=3?animacion_selector=0:++animacion_selector;
-  }
-
+  //if(fps_count%15 == 0){
+  //  animacion_selector>=3?animacion_selector=0:++animacion_selector;
+  //};
 
   for (int i = 0; i <=N_ENEMIGOS -1; i++) {
+
+    //Cada 15 frames cambiamos el sprite del alien para la animacion
+    if(fps_count%15 == 0){
+      enemigos[i].index_animacion>=3?enemigos[i].index_animacion=0:++enemigos[i].index_animacion;
+    }
     esat::SpriteHandle sprite;
     switch (enemigos[i].type) {
       case 'G':
-        sprite = animacion_alienVerde[animacion_selector];
+        sprite = animacion_alienVerde[enemigos[i].index_animacion];
       break;
       case 'P':
-        sprite = animacion_alienRosa[animacion_selector];
+        sprite = animacion_alienRosa[enemigos[i].index_animacion];
       break;
       case 'R':
-        sprite = animacion_alienRojo[animacion_selector];
+        sprite = animacion_alienRojo[enemigos[i].index_animacion];
       break;
       case 'Y':
         sprite = alienAmarillo;
@@ -218,6 +236,7 @@ void PrintEnemigos(){
     //Si está descendiendo, llamamos a la funcion de descenso y le pasamos el index de quien está descendiendo y su sprite
     if(enemigos[i].descendiendo){
       Descender(i, sprite);
+      Disparar(i);
     }
   }
 }
@@ -469,6 +488,7 @@ void debugEnemigos(){
     // printf(" - Enemigo %d score %d - \n",i,enemigos[i].score);
     // printf("Type %c \n", enemigos[i].type);
     // printf("DEBUG Enemigo type:%c x: %d y:%d \n",enemigos[i].type,enemigos[i].x,enemigos[i].y);
+   //printf("Index animacion de %d: %d",i,enemigos[i].index_animacion);
   }
 
 }

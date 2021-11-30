@@ -14,7 +14,7 @@ Snow background[N_NIEVE];
 int score1 = 0, score2 = 0, max_score = 0;
 int frames_count = -1, score_frames_count = 0;
 int credits = 0, N_players = 1;
-int velocidad_enemigos = 1;
+int velocidad_enemigos = 1, velocidad_enemigos_disparo = 8;
 int velocidad_enemigos_descenso = 3,  velocidad_enemigos_descenso_x = 3;
 int velocidad_jugador = 5;
 int velocidad_disparo_player = 15;
@@ -45,7 +45,7 @@ bool interfaz = false;
 bool start = false;
 bool win = false;
 bool gameOver = false;
-int player_actual = 1;
+int player_actual = 0;
 
 char Intro_l1 [22] = "WE ARE THE GALAXIANS\0";
 char Intro_l2 [] = "MISION: DESTROY ALIENS\0";
@@ -61,6 +61,7 @@ esat::SpriteHandle namcot;
 esat::SpriteHandle vidas;
 esat::SpriteHandle player;
 esat::SpriteHandle playerDisparando;
+esat::SpriteHandle playerExplosion [4];
 esat::SpriteHandle alienAmarillo;
 esat::SpriteHandle alienRojo;
 esat::SpriteHandle animacion_alienRojo [4];
@@ -70,6 +71,7 @@ esat::SpriteHandle alienVerde;
 esat::SpriteHandle animacion_alienVerde [4];
 esat::SpriteHandle explosion_alien [4];
 esat::SpriteHandle disparoPlayer;
+esat::SpriteHandle disparoEnemigo;
 int animacion_selector = 0;
 int explosion_selector = 0;
 
@@ -82,6 +84,8 @@ int xAlienVe = ANCHO*3;
 
 int fps_count_start = 1;
 int fps_count_explosion = 1;
+
+int fps_count_explosion_player = 1;
 
 Jugador players[2];
 Enemigo enemigos[46];
