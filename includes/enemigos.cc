@@ -68,8 +68,8 @@ void CreateEnemigos(){
     Disparo disparo;
     Explosion explosion={0,0,false};
     Enemigo enemigo={score,x,y,type,disparo,explosion};
-    //players[player_actual].enemigos[i] = enemigo;
-    enemigos[i] = enemigo;
+    players[player_actual].enemigos[i] = enemigo;
+    //enemigos[i] = enemigo;
   }
 
   //players[player_actual].enemigos = enemigos;
@@ -81,98 +81,98 @@ void ExplosionEnemigos(int posicion){
   //Cada 0'25 segundos muestro una animacion de la explosion
   if(fps_count_explosion>fps*(explosion_selector*0.1))explosion_selector++;
   if(explosion_selector<4){
-    esat::DrawSprite(explosion_alien[explosion_selector],enemigos[posicion].explosion.x, enemigos[posicion].explosion.y);
+    esat::DrawSprite(explosion_alien[explosion_selector],players[player_actual].enemigos[posicion].explosion.x, players[player_actual].enemigos[posicion].explosion.y);
 
     //Cuando ya he mostrado todas las explosiones, dejo de explotar y reinicio las variables
   }else if(explosion_selector>=4){
     explosion_selector=0;
     fps_count_explosion = 0;
-    enemigos[posicion].explosion.explotando = false;
+    players[player_actual].enemigos[posicion].explosion.explotando = false;
   }
   // esat::DrawSprite();
 }
 
 
 void Disparar(int index){
-  if(!enemigos[index].disparo.disparando && enemigos[index].vivo){
-    enemigos[index].disparo.x = enemigos[index].descensoX;
-    enemigos[index].disparo.y = enemigos[index].descensoY;
-    enemigos[index].disparo.disparando = true;
+  if(!players[player_actual].enemigos[index].disparo.disparando && players[player_actual].enemigos[index].vivo){
+    players[player_actual].enemigos[index].disparo.x = players[player_actual].enemigos[index].descensoX;
+    players[player_actual].enemigos[index].disparo.y = players[player_actual].enemigos[index].descensoY;
+    players[player_actual].enemigos[index].disparo.disparando = true;
   }else{
     //Empiezo a disparar
     
-    esat::DrawSprite(disparoEnemigo,enemigos[index].disparo.x,enemigos[index].disparo.y+=velocidad_enemigos_disparo);
-    if(enemigos[index].disparo.y>=ALTO*3)enemigos[index].disparo.disparando=false;
+    esat::DrawSprite(disparoEnemigo,players[player_actual].enemigos[index].disparo.x,players[player_actual].enemigos[index].disparo.y+=velocidad_enemigos_disparo);
+    if(players[player_actual].enemigos[index].disparo.y>=ALTO*3)players[player_actual].enemigos[index].disparo.disparando=false;
   }
 }
 
 
 void Descender(int index, esat::SpriteHandle sprite){
-  if(enemigos[index].vivo && !enemigos[index].fin_descenso){
+  if(players[player_actual].enemigos[index].vivo && !players[player_actual].enemigos[index].fin_descenso){
     //velocidad_enemigos_descenso--;
-    enemigos[index].descensoY+=velocidad_enemigos_descenso;
+    players[player_actual].enemigos[index].descensoY+=velocidad_enemigos_descenso;
 
     //Si el jugador (x+100 para la parabola) está a la derecha del alien, lo movemos hacia él
-    if(enemigos[index].descensoX < players[player_actual].x+100 && enemigos[index].direccion_descenso == 'R'){
+    if(players[player_actual].enemigos[index].descensoX < players[player_actual].x+100 && players[player_actual].enemigos[index].direccion_descenso == 'R'){
       //A medida que se vaya acercando, vamos disminuyendo la velocidad para la sensacion de una velocidad exponencial y cambiamos el sprite 
 
-      enemigos[index].descensoX+= velocidad_enemigos_descenso_x;
+      players[player_actual].enemigos[index].descensoX+= velocidad_enemigos_descenso_x;
 
     //Cuando llega al final invertimos la direccion
     }else{
-      enemigos[index].direccion_descenso = 'L';
+      players[player_actual].enemigos[index].direccion_descenso = 'L';
     }
     
     //Lo mismo para la parte izquierda
-    if(enemigos[index].descensoX > players[player_actual].x-100 && enemigos[index].direccion_descenso == 'L'){
-      enemigos[index].descensoX-= velocidad_enemigos_descenso_x;
+    if(players[player_actual].enemigos[index].descensoX > players[player_actual].x-100 && players[player_actual].enemigos[index].direccion_descenso == 'L'){
+      players[player_actual].enemigos[index].descensoX-= velocidad_enemigos_descenso_x;
     }else{
-      enemigos[index].direccion_descenso = 'R';
+      players[player_actual].enemigos[index].direccion_descenso = 'R';
     }
-    esat::DrawSprite(sprite,enemigos[index].descensoX, enemigos[index].descensoY);
+    esat::DrawSprite(sprite,players[player_actual].enemigos[index].descensoX, players[player_actual].enemigos[index].descensoY);
 
     //Cuando llega a abajo del todo, lo ponemos arriba y marcamos el fin de su descenso
-    if(enemigos[index].descensoY>=ALTO*3 && enemigos[index].fin_descenso == false){
+    if(players[player_actual].enemigos[index].descensoY>=ALTO*3 && players[player_actual].enemigos[index].fin_descenso == false){
       printf("HA llegado abajo \n");
-      enemigos[index].fin_descenso = true;
-      enemigos[index].descensoY = 50;
+      players[player_actual].enemigos[index].fin_descenso = true;
+      players[player_actual].enemigos[index].descensoY = 50;
     }
 
   };
 
     
     //Si ya he acabado de descender, lo vuelvo al sitio
-    if(enemigos[index].fin_descenso){
+    if(players[player_actual].enemigos[index].fin_descenso){
 
       bool al_sitioY = false;
       bool al_sitioX = false;
 
-      if(enemigos[index].descensoY<enemigos[index].y){
-        enemigos[index].descensoY+=velocidad_enemigos_descenso;
+      if(players[player_actual].enemigos[index].descensoY<players[player_actual].enemigos[index].y){
+        players[player_actual].enemigos[index].descensoY+=velocidad_enemigos_descenso;
         al_sitioY = false;
       }else{
         al_sitioY = true;
       }
 
-      if(enemigos[index].descensoX > enemigos[index].x){
-        enemigos[index].descensoX-=velocidad_enemigos_descenso_x;
+      if(players[player_actual].enemigos[index].descensoX > players[player_actual].enemigos[index].x){
+        players[player_actual].enemigos[index].descensoX-=velocidad_enemigos_descenso_x;
         al_sitioX = false;
 
       }
-      if(enemigos[index].descensoX < enemigos[index].x){
-        enemigos[index].descensoX+=velocidad_enemigos_descenso_x;
+      if(players[player_actual].enemigos[index].descensoX < players[player_actual].enemigos[index].x){
+        players[player_actual].enemigos[index].descensoX+=velocidad_enemigos_descenso_x;
         al_sitioX = false;
       }else{
         al_sitioX = true;
       }
 
-      esat::DrawSprite(sprite,enemigos[index].descensoX, enemigos[index].descensoY);
+      esat::DrawSprite(sprite,players[player_actual].enemigos[index].descensoX, players[player_actual].enemigos[index].descensoY);
 
       if(al_sitioY && al_sitioX){
-        enemigos[index].descendiendo = false;
-        enemigos[index].fin_descenso = false;
-        enemigos[index].descensoX = -20;
-        enemigos[index].descensoY = -20;
+        players[player_actual].enemigos[index].descendiendo = false;
+        players[player_actual].enemigos[index].fin_descenso = false;
+        players[player_actual].enemigos[index].descensoX = -20;
+        players[player_actual].enemigos[index].descensoY = -20;
       }
 
 
@@ -191,50 +191,50 @@ void PrintEnemigos(){
 
     //Cada 15 frames cambiamos el sprite del alien para la animacion
     if(fps_count%15 == 0){
-      enemigos[i].index_animacion>=3?enemigos[i].index_animacion=0:++enemigos[i].index_animacion;
+      players[player_actual].enemigos[i].index_animacion>=3?players[player_actual].enemigos[i].index_animacion=0:++players[player_actual].enemigos[i].index_animacion;
     }
     esat::SpriteHandle sprite;
-    switch (enemigos[i].type) {
+    switch (players[player_actual].enemigos[i].type) {
       case 'G':
-        sprite = animacion_alienVerde[enemigos[i].index_animacion];
+        sprite = animacion_alienVerde[players[player_actual].enemigos[i].index_animacion];
       break;
       case 'P':
-        sprite = animacion_alienRosa[enemigos[i].index_animacion];
+        sprite = animacion_alienRosa[players[player_actual].enemigos[i].index_animacion];
       break;
       case 'R':
-        sprite = animacion_alienRojo[enemigos[i].index_animacion];
+        sprite = animacion_alienRojo[players[player_actual].enemigos[i].index_animacion];
       break;
       case 'Y':
         sprite = alienAmarillo;
       break;
     }
     //Si cualquier alien está vivo y ha tocado el borde derecho, invertimos la dirección
-    if(enemigos[i].vivo && enemigos[i].x + 33 >=ANCHO*3)direccion_enemigos = 'L';
+    if(players[player_actual].enemigos[i].vivo && players[player_actual].enemigos[i].x + 33 >=ANCHO*3)direccion_enemigos = 'L';
 
     //Si cualquier alien está vivo y ha tocado el borde izquierdo, invertimos la dirección
-    if(enemigos[i].vivo && enemigos[i].x <=0)direccion_enemigos = 'R';
+    if(players[player_actual].enemigos[i].vivo && players[player_actual].enemigos[i].x <=0)direccion_enemigos = 'R';
 
 
     //Movemos los enemigos a la derecha
     if(direccion_enemigos == 'R'){
-      enemigos[i].x+=velocidad_enemigos;
-      if(enemigos[i].vivo && !enemigos[i].descendiendo)esat::DrawSprite(sprite,enemigos[i].x,enemigos[i].y);
+      players[player_actual].enemigos[i].x+=velocidad_enemigos;
+      if(players[player_actual].enemigos[i].vivo && !players[player_actual].enemigos[i].descendiendo)esat::DrawSprite(sprite,players[player_actual].enemigos[i].x,players[player_actual].enemigos[i].y);
 
       //Movemos los enemigos a la izquierda
     }else if(direccion_enemigos == 'L'){
-      enemigos[i].x-=velocidad_enemigos;
-      if(enemigos[i].vivo && !enemigos[i].descendiendo)esat::DrawSprite(sprite,enemigos[i].x,enemigos[i].y);
+      players[player_actual].enemigos[i].x-=velocidad_enemigos;
+      if(players[player_actual].enemigos[i].vivo && !players[player_actual].enemigos[i].descendiendo)esat::DrawSprite(sprite,players[player_actual].enemigos[i].x,players[player_actual].enemigos[i].y);
 
       //Movemos el enemigo seleccionado hacia abajo
-    }else if(enemigos[i].vivo && enemigos[i].descendiendo){
+    }else if(players[player_actual].enemigos[i].vivo && players[player_actual].enemigos[i].descendiendo){
       //
     }
 
     //Si está explotando, llamamos a la funcion de explotar y le pasamos el indice del enemigo
-    if(enemigos[i].explosion.explotando)ExplosionEnemigos(i);
+    if(players[player_actual].enemigos[i].explosion.explotando)ExplosionEnemigos(i);
 
     //Si está descendiendo, llamamos a la funcion de descenso y le pasamos el index de quien está descendiendo y su sprite
-    if(enemigos[i].descendiendo){
+    if(players[player_actual].enemigos[i].descendiendo){
       Descender(i, sprite);
       Disparar(i);
     }
@@ -254,13 +254,13 @@ void CalcularDescenso(){
       if(rand()%2==0){
         //Sale por la izquierda
         printf("Sale por la izquierda\n");
-        if(!enemigos[indexAtaqueA1].descendiendo){
+        if(!players[player_actual].enemigos[indexAtaqueA1].descendiendo){
           //Si el de la esquina no está descendiendo ya, que descienda y que vaya hacia la derecha
-          enemigos[indexAtaqueA1].descendiendo = true;
-          enemigos[indexAtaqueA1].direccion_descenso = 'R';
-          enemigos[indexAtaqueA1].fin_descenso = false;
-          enemigos[indexAtaqueA1].descensoX = enemigos[indexAtaqueA1].x;
-          enemigos[indexAtaqueA1].descensoY = enemigos[indexAtaqueA1].y;
+          players[player_actual].enemigos[indexAtaqueA1].descendiendo = true;
+          players[player_actual].enemigos[indexAtaqueA1].direccion_descenso = 'R';
+          players[player_actual].enemigos[indexAtaqueA1].fin_descenso = false;
+          players[player_actual].enemigos[indexAtaqueA1].descensoX = players[player_actual].enemigos[indexAtaqueA1].x;
+          players[player_actual].enemigos[indexAtaqueA1].descensoY = players[player_actual].enemigos[indexAtaqueA1].y;
         }else{
           //si ya está descendiendo, comprobamos que el siguiente no esté muerto y que no esté descendiendo y le decimos que descienda
           if(!enemigos[indexAtaqueA1+1].descendiendo && enemigos[indexAtaqueA1+1].vivo){
@@ -269,20 +269,20 @@ void CalcularDescenso(){
 
             //Marcamos la posicion en la que desciende
             enemigos[indexAtaqueA1+1].fin_descenso = false;
-            enemigos[indexAtaqueA1+1].descensoX = enemigos[indexAtaqueA1].x;
-            enemigos[indexAtaqueA1+1].descensoY = enemigos[indexAtaqueA1].y;
+            enemigos[indexAtaqueA1+1].descensoX = players[player_actual].enemigos[indexAtaqueA1].x;
+            enemigos[indexAtaqueA1+1].descensoY = players[player_actual].enemigos[indexAtaqueA1].y;
           }
         }
       }else{
         //Sale por la derecha
         printf("Sale por la derecha\n");
-        if(!enemigos[indexAtaqueA2].descendiendo){
+        if(!players[player_actual].enemigos[indexAtaqueA2].descendiendo){
           //Si el de la esquina no está descendiendo ya, que descienda
-          enemigos[indexAtaqueA2].descendiendo = true;
-          enemigos[indexAtaqueA2].direccion_descenso = 'L';
-          enemigos[indexAtaqueA2].fin_descenso = false;
-          enemigos[indexAtaqueA2].descensoX = enemigos[indexAtaqueA2].x;
-          enemigos[indexAtaqueA2].descensoY = enemigos[indexAtaqueA2].y;
+          players[player_actual].enemigos[indexAtaqueA2].descendiendo = true;
+          players[player_actual].enemigos[indexAtaqueA2].direccion_descenso = 'L';
+          players[player_actual].enemigos[indexAtaqueA2].fin_descenso = false;
+          players[player_actual].enemigos[indexAtaqueA2].descensoX = players[player_actual].enemigos[indexAtaqueA2].x;
+          players[player_actual].enemigos[indexAtaqueA2].descensoY = players[player_actual].enemigos[indexAtaqueA2].y;
         }else{
           //si ya está descendiendo, comprobamos que el siguiente no esté muerto y que no esté descendiendo y le decimos que descienda
           if(!enemigos[indexAtaqueA2-1].descendiendo && enemigos[indexAtaqueA1-1].vivo){
@@ -311,7 +311,7 @@ void CalcularDescenso(){
 void Disparoenemigos(){
   for (int i = 0; i < N_ENEMIGOS; i++){
     //Los enemigos disparan todo el rato siempre y cuando sea posible (hasta que llega hasta abajo)
-    if(enemigos[i].descendiendo){
+    if(players[player_actual].enemigos[i].descendiendo){
 
     }
   }
@@ -336,13 +336,13 @@ void PuedeAtacar(){
     bool ataqueConfirmadoA1 = false;
     do{
       //Si el que está mas a la esquina izquierda ha muerto, incrementamos el indice para que pase al siguiente y marcamos la esquina de ese enemigo como false
-      if(!enemigos[indexAtaqueA1].vivo){
-        enemigos[indexAtaqueA1].esquina = false;
+      if(!players[player_actual].enemigos[indexAtaqueA1].vivo){
+        players[player_actual].enemigos[indexAtaqueA1].esquina = false;
         ++indexAtaqueA1;
       }else{
         //Si el siguiente index de la esquina izquierda está vivo, dejamos de buscar la nueva esquina y marcamos la esquina de ese enemigo como true
         ataqueConfirmadoA1 = true;
-        enemigos[indexAtaqueA1].esquina = true;
+        players[player_actual].enemigos[indexAtaqueA1].esquina = true;
       }
       //Repetimos el proceso para cada esquina
 
@@ -351,12 +351,12 @@ void PuedeAtacar(){
   //Primera fila esquina derecha
     bool ataqueConfirmadoA2 = false;
     do{
-      if(!enemigos[indexAtaqueA2].vivo){
-        enemigos[indexAtaqueA2].esquina = false;
+      if(!players[player_actual].enemigos[indexAtaqueA2].vivo){
+        players[player_actual].enemigos[indexAtaqueA2].esquina = false;
         --indexAtaqueA2;
       }else{
         ataqueConfirmadoA2 = true;
-        enemigos[indexAtaqueA2].esquina = true;
+        players[player_actual].enemigos[indexAtaqueA2].esquina = true;
       }
 
     }while(!ataqueConfirmadoA2);
@@ -366,11 +366,11 @@ void PuedeAtacar(){
   //Segunda fila esquina izquierda
     bool ataqueConfirmadoB1 = false;
     do{
-      if(!enemigos[indexAtaqueB1].vivo){
-        enemigos[indexAtaqueB1].esquina = false;
+      if(!players[player_actual].enemigos[indexAtaqueB1].vivo){
+        players[player_actual].enemigos[indexAtaqueB1].esquina = false;
         ++indexAtaqueB1;
       }else{
-        enemigos[indexAtaqueB1].esquina = true;
+        players[player_actual].enemigos[indexAtaqueB1].esquina = true;
         ataqueConfirmadoB1 = true;
       }
 
@@ -379,11 +379,11 @@ void PuedeAtacar(){
   //Segunda fila esquina derecha
     bool ataqueConfirmadoB2 = false;
     do{
-      if(!enemigos[indexAtaqueB2].vivo){
-        enemigos[indexAtaqueB2].esquina = false;
+      if(!players[player_actual].enemigos[indexAtaqueB2].vivo){
+        players[player_actual].enemigos[indexAtaqueB2].esquina = false;
         --indexAtaqueB2;
       }else{
-        enemigos[indexAtaqueB2].esquina = true;
+        players[player_actual].enemigos[indexAtaqueB2].esquina = true;
         ataqueConfirmadoB2 = true;
       }
 
@@ -394,11 +394,11 @@ void PuedeAtacar(){
   //Tercera fila esquina izquierda
     bool ataqueConfirmadoC1 = false;
     do{
-      if(!enemigos[indexAtaqueC1].vivo){
-        enemigos[indexAtaqueC1].esquina = false;
+      if(!players[player_actual].enemigos[indexAtaqueC1].vivo){
+        players[player_actual].enemigos[indexAtaqueC1].esquina = false;
         ++indexAtaqueC1;
       }else{
-        enemigos[indexAtaqueC1].esquina = true;
+        players[player_actual].enemigos[indexAtaqueC1].esquina = true;
         ataqueConfirmadoC1 = true;
       }
 
@@ -407,11 +407,11 @@ void PuedeAtacar(){
   //Tercera fila esquina derecha
     bool ataqueConfirmadoC2 = false;
     do{
-      if(!enemigos[indexAtaqueC2].vivo){
-        enemigos[indexAtaqueC2].esquina = false;
+      if(!players[player_actual].enemigos[indexAtaqueC2].vivo){
+        players[player_actual].enemigos[indexAtaqueC2].esquina = false;
         --indexAtaqueC2;
       }else{
-        enemigos[indexAtaqueC2].esquina = true;
+        players[player_actual].enemigos[indexAtaqueC2].esquina = true;
         ataqueConfirmadoC2 = true;
       }
 
@@ -422,11 +422,11 @@ void PuedeAtacar(){
     //Cuarta fila esquina izquierda
     bool ataqueConfirmadoD1 = false;
     do{
-      if(!enemigos[indexAtaqueD1].vivo){
-        enemigos[indexAtaqueD1].esquina = false;
+      if(!players[player_actual].enemigos[indexAtaqueD1].vivo){
+        players[player_actual].enemigos[indexAtaqueD1].esquina = false;
         ++indexAtaqueD1;
       }else{
-        enemigos[indexAtaqueD1].esquina = true;
+        players[player_actual].enemigos[indexAtaqueD1].esquina = true;
         ataqueConfirmadoD1 = true;
       }
 
@@ -435,11 +435,11 @@ void PuedeAtacar(){
   //Cuarta fila esquina derecha
     bool ataqueConfirmadoD2 = false;
     do{
-      if(!enemigos[indexAtaqueD2].vivo){
-        enemigos[indexAtaqueD2].esquina = false;
+      if(!players[player_actual].enemigos[indexAtaqueD2].vivo){
+        players[player_actual].enemigos[indexAtaqueD2].esquina = false;
         --indexAtaqueD2;
       }else{
-        enemigos[indexAtaqueD2].esquina = true;
+        players[player_actual].enemigos[indexAtaqueD2].esquina = true;
         ataqueConfirmadoD2 = true;
       }
 
@@ -452,13 +452,13 @@ void PuedeAtacar(){
     bool ataqueConfirmadoE1 = false;
     do{
     
-      if(!enemigos[indexAtaqueE1].vivo){
-        enemigos[indexAtaqueE1].esquina = false;
+      if(!players[player_actual].enemigos[indexAtaqueE1].vivo){
+        players[player_actual].enemigos[indexAtaqueE1].esquina = false;
         ++indexAtaqueE1;
       }else{
 
         ataqueConfirmadoE1 = true;
-        enemigos[indexAtaqueE1].esquina = true;
+        players[player_actual].enemigos[indexAtaqueE1].esquina = true;
       }
 
     }while(!ataqueConfirmadoE1);
@@ -467,13 +467,13 @@ void PuedeAtacar(){
     bool ataqueConfirmadoE2 = false;
     do{
     
-      if(!enemigos[indexAtaqueE2].vivo){
-        enemigos[indexAtaqueE2].esquina = false;
+      if(!players[player_actual].enemigos[indexAtaqueE2].vivo){
+        players[player_actual].enemigos[indexAtaqueE2].esquina = false;
         ++indexAtaqueE2;
       }else{
 
         ataqueConfirmadoE2 = true;
-        enemigos[indexAtaqueE2].esquina = true;
+        players[player_actual].enemigos[indexAtaqueE2].esquina = true;
       }
 
     }while(!ataqueConfirmadoE2);
@@ -485,10 +485,11 @@ void PuedeAtacar(){
 
 void debugEnemigos(){
   for (int i = 0; i <= N_ENEMIGOS -1; i++){
-    // printf(" - Enemigo %d score %d - \n",i,enemigos[i].score);
-    // printf("Type %c \n", enemigos[i].type);
-    // printf("DEBUG Enemigo type:%c x: %d y:%d \n",enemigos[i].type,enemigos[i].x,enemigos[i].y);
-   //printf("Index animacion de %d: %d",i,enemigos[i].index_animacion);
+    printf(" - Enemigo %d score %d - \n",i,players[player_actual].enemigos[i].score);
+    //printf(" - Enemigo %d score %d - \n",i,players[player_actual].enemigos[i].score);
+    // printf("Type %c \n", players[player_actual].enemigos[i].type);
+    // printf("DEBUG Enemigo type:%c x: %d y:%d \n",players[player_actual].enemigos[i].type,players[player_actual].enemigos[i].x,players[player_actual].enemigos[i].y);
+   //printf("Index animacion de %d: %d",i,players[player_actual].enemigos[i].index_animacion);
   }
 
 }

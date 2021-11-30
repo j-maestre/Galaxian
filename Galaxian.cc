@@ -10,9 +10,9 @@ int esat::main(int argc, char **argv) {
 	//Creating items
 	CreateBackGround();
 	CreateSprites();
-	CreateEnemigos();
 	CreatePlayer();
-	//debugEnemigos();
+	CreateEnemigos();
+	debugEnemigos();
 	//End creating items
 
 	esat::DrawSetTextFont(FONT_PATH);
