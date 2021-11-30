@@ -38,11 +38,16 @@ struct Enemigo{
 	int score;									//Puntuacion recibida al matarlo
 	int x;						  				//Posicion X
 	int y;						  				//Posicion Y
-	char type;
-	Disparo disparo;						//Disparo del enemigo
-	Explosion explosion;				//Explosion del enemigo
-	bool descendiendo = false;  //Si el enemigo está descendiendo en parabola hacia el jugador
-	bool vivo = true;						//Vivo o muerto
+	char type;									//Enemy type
+	Disparo disparo;							//Disparo del enemigo
+	Explosion explosion;						//Explosion del enemigo
+	bool esquina = false;						//Si está en una esquina, podrá atacar, sino no
+	bool descendiendo = false;  				//Si el enemigo está descendiendo en parabola hacia el jugador
+	char direccion_descenso;					//La direccion X en la que desciende R|L
+	bool fin_descenso = false;
+	int descensoX = 0;
+	int descensoY = 0;
+	bool vivo = true;							//Vivo o muerto
 
 };
 

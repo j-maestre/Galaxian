@@ -15,6 +15,7 @@ int score1 = 0, score2 = 0, max_score = 0;
 int frames_count = -1, score_frames_count = 0;
 int credits = 0, N_players = 1;
 int velocidad_enemigos = 1;
+int velocidad_enemigos_descenso = 3,  velocidad_enemigos_descenso_x = 3;
 int velocidad_jugador = 5;
 int velocidad_disparo_player = 15;
 char direccion_enemigos = 'R';                   //Direccion horizontal en la que se mueven los enemigos R|L
@@ -26,9 +27,24 @@ int frecuencia_amarillo = 200;
 int frecuencia = 4;
 int cont_frecuencia = 0;
 
+//Indices de quien puede atacar (esquinas)
+int indexAtaqueA1 = 0;
+int indexAtaqueA2 = 9;
+int indexAtaqueB1 = 10;
+int indexAtaqueB2 = 19; 
+int indexAtaqueC1 = 20;
+int indexAtaqueC2 = 29;
+int indexAtaqueD1 = 30;
+int indexAtaqueD2 = 37;
+int indexAtaqueE1 = 38;
+int indexAtaqueE2 = 43;
+bool fila1 = true, fila2 = true, fila3 = true, fila4 = true, fila5 = true;
+
 bool players_selected = false;
 bool interfaz = false;
 bool start = false;
+bool win = false;
+bool gameOver = false;
 int player_actual = 1;
 
 char Intro_l1 [22] = "WE ARE THE GALAXIANS\0";

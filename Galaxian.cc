@@ -37,6 +37,10 @@ int esat::main(int argc, char **argv) {
 					//LLamar al jugador
 					PrintPlayer();
 					Vidas();
+					//Comprobar que toda la fila siga viva
+					ComprobarFila();
+					//Solo pueden atacar los que están en las esquinas
+					PuedeAtacar();
 					ColisionDispEnemigos();
 					CalcularDescenso();
 				}
