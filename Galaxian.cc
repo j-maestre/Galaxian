@@ -44,6 +44,7 @@ int esat::main(int argc, char **argv) {
 					PuedeAtacar();
 					CheckColisiones();
 					CalcularDescenso();
+					DebugPlayer();
 
 					//Si el player actual ha perdido una vida
 					if(players[player_actual].gameOver){

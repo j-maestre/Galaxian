@@ -66,3 +66,7 @@ void PrintPlayer(){
     if(players[player_actual].explosion.explotando)ExplosionPlayer();
 }
 
+
+void DebugPlayer(){
+    printf("DEBUG Player Disparo Y:%d X:%d \n",players[0].disparo.y,players[0].disparo.x);
+}

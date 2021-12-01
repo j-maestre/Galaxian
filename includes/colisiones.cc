@@ -22,6 +22,10 @@ void ColisionDispEnemigos(){
           //Dejamos de disparar
           players[player_actual].disparo.disparando = false;
 
+          //Reiniciamos la posicion de la bala
+           players[player_actual].disparo.y=-50;
+           players[player_actual].disparo.x=-50;
+
           //Sumamos el score al jugador
           player_actual==0?score1+=players[player_actual].enemigos[i].score: score2+=players[player_actual].enemigos[i].score;
          

@@ -311,11 +311,11 @@ void CalcularDescenso(){
 
 void ComprobarFila(){
   //Comprobar si todos los de cada fila están muertos, si es así, marcamos esa fila como muerta
-  if(!enemigos[0].vivo && !enemigos[1].vivo && !enemigos[2].vivo && !enemigos[3].vivo && !enemigos[4].vivo && !enemigos[5].vivo && !enemigos[6].vivo && !enemigos[7].vivo && !enemigos[8].vivo && !enemigos[9].vivo)fila1 = false;
-  if(!enemigos[10].vivo && !enemigos[11].vivo && !enemigos[12].vivo && !enemigos[13].vivo && !enemigos[14].vivo && !enemigos[15].vivo && !enemigos[16].vivo && !enemigos[17].vivo && !enemigos[18].vivo && !enemigos[19].vivo)fila2 = false;
-  if(!enemigos[20].vivo && !enemigos[21].vivo && !enemigos[22].vivo && !enemigos[23].vivo && !enemigos[24].vivo && !enemigos[25].vivo && !enemigos[26].vivo && !enemigos[27].vivo && !enemigos[28].vivo && !enemigos[29].vivo)fila3 = false;
-  if(!enemigos[30].vivo && !enemigos[31].vivo && !enemigos[32].vivo && !enemigos[33].vivo && !enemigos[34].vivo && !enemigos[35].vivo && !enemigos[36].vivo && !enemigos[37].vivo)fila4 = false;
-  if(!enemigos[38].vivo && !enemigos[39].vivo && !enemigos[40].vivo && !enemigos[41].vivo && !enemigos[42].vivo && !enemigos[43].vivo )fila5 = false;
+  if(!players[player_actual].enemigos[0].vivo && !players[player_actual].enemigos[1].vivo && !players[player_actual].enemigos[2].vivo && !players[player_actual].enemigos[3].vivo && !players[player_actual].enemigos[4].vivo && !players[player_actual].enemigos[5].vivo && !players[player_actual].enemigos[6].vivo && !players[player_actual].enemigos[7].vivo && !players[player_actual].enemigos[8].vivo && !players[player_actual].enemigos[9].vivo)fila1 = false;
+  if(!players[player_actual].enemigos[10].vivo && !players[player_actual].enemigos[11].vivo && !players[player_actual].enemigos[12].vivo && !players[player_actual].enemigos[13].vivo && !players[player_actual].enemigos[14].vivo && !players[player_actual].enemigos[15].vivo && !players[player_actual].enemigos[16].vivo && !players[player_actual].enemigos[17].vivo && !players[player_actual].enemigos[18].vivo && !players[player_actual].enemigos[19].vivo)fila2 = false;
+  if(!players[player_actual].enemigos[20].vivo && !players[player_actual].enemigos[21].vivo && !players[player_actual].enemigos[22].vivo && !players[player_actual].enemigos[23].vivo && !players[player_actual].enemigos[24].vivo && !players[player_actual].enemigos[25].vivo && !players[player_actual].enemigos[26].vivo && !players[player_actual].enemigos[27].vivo && !players[player_actual].enemigos[28].vivo && !players[player_actual].enemigos[29].vivo)fila3 = false;
+  if(!players[player_actual].enemigos[30].vivo && !players[player_actual].enemigos[31].vivo && !players[player_actual].enemigos[32].vivo && !players[player_actual].enemigos[33].vivo && !players[player_actual].enemigos[34].vivo && !players[player_actual].enemigos[35].vivo && !players[player_actual].enemigos[36].vivo && !players[player_actual].enemigos[37].vivo)fila4 = false;
+  if(!players[player_actual].enemigos[38].vivo && !players[player_actual].enemigos[39].vivo && !players[player_actual].enemigos[40].vivo && !players[player_actual].enemigos[41].vivo && !players[player_actual].enemigos[42].vivo && !players[player_actual].enemigos[43].vivo )fila5 = false;
 }
 
 void PuedeAtacar(){
