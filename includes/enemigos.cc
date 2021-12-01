@@ -183,6 +183,7 @@ void Descender(int index, esat::SpriteHandle sprite){
 void PrintEnemigos(){
 
   fps_count<1000?++fps_count:fps_count=0;
+  // printf("%d\n",fps_count);
   //if(fps_count%15 == 0){
   //  animacion_selector>=3?animacion_selector=0:++animacion_selector;
   //};
@@ -245,7 +246,7 @@ void PrintEnemigos(){
 void CalcularDescenso(){
   cont_frecuencia++;
   if(cont_frecuencia%(fps*frecuencia) == 0){
-    int random = rand()%201;
+    int random = rand()%251;
     printf("Sacamos num random: %d\n", random);
     if(random<=frecuencia_verde){
       //Baja un verde
@@ -303,16 +304,6 @@ void CalcularDescenso(){
     }else if(random>frecuencia_rojo && random<=frecuencia_amarillo){
       //Baja un amarillo con rojos o solo si no quedan
       printf("AMARILLO \n");
-    }
-  }
-
-}
-
-void Disparoenemigos(){
-  for (int i = 0; i < N_ENEMIGOS; i++){
-    //Los enemigos disparan todo el rato siempre y cuando sea posible (hasta que llega hasta abajo)
-    if(players[player_actual].enemigos[i].descendiendo){
-
     }
   }
 

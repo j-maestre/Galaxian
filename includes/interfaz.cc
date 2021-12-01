@@ -115,13 +115,15 @@ void Score(){
   ResetColor();
   esat::DrawSetTextSize(18);
   esat::DrawText(60, 40, "1 UP");
-  esat::DrawText((ANCHO*3)/2 -50, 40, "HIGH SCORE");
+  esat::DrawText((ANCHO*3)/2 -100, 40, "HIGH SCORE");
+  esat::DrawText((ANCHO*3)/2 +200, 40, "2 UP");
   if(score1>max_score)max_score=score1;
   if(score2>max_score)max_score=score2;
 
   RGB color = {255, 0, 0};
-  printScore((ANCHO*3)/2 +40,70,max_score, color);
   printScore((ANCHO*3)/6 -40,70,score1, color);
+  printScore((ANCHO*3)/2 -40,70,max_score, color);
+  printScore((ANCHO*3)/2 +200,70,score2, color);
 
 }
 
@@ -165,7 +167,7 @@ bool Players(){
       //Si pulsa abajo y tiene mas de 1 credito establecemos 2 jugadores
       if(esat::IsSpecialKeyDown(esat::kSpecialKey_Down))N_players=2;
 
-      //Si hay marcados 2 jugadores, pintamos "2 players" en verde
+      //Si hay marcados 2 jugadores, pintamos "2 players"
       if(N_players==2){
         esat::DrawSprite(flecha,(ANCHO*3)/3 -40, (ALTO*3)/2.5 +60);
       }
@@ -176,7 +178,19 @@ bool Players(){
       ResetColor();
     };
 
-    if(esat::IsSpecialKeyDown(esat::kSpecialKey_Enter))return true;
+    if(esat::IsSpecialKeyDown(esat::kSpecialKey_Enter)){
+      //Despues de pulsar enter, creamos los jugadores necesarios y los enemigos del jugador 1
+      CreatePlayer();
+      CreateEnemigos();
+
+      //Si cuando pulsa enter ha seleccionado dos jugadores, creamos los enemigos para el segundo jugador y se los asignamos
+      if(N_players==2){
+        player_actual = 1;
+        CreateEnemigos();
+        player_actual = 0;
+      }
+      return true;
+    }
 
   }
 
@@ -314,7 +328,9 @@ bool Start(){
   ResetColor(255,0,0);
   fps_count_start++;
   if(fps_count_start<fps*3){
-    esat::DrawText(250,450,"PLAYER ONE");
+    if(player_actual==0)esat::DrawText(250,450,"PLAYER ONE");
+    if(player_actual==1)esat::DrawText(250,450,"PLAYER TWO");
+    
   }else{
     return true;
   }

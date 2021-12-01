@@ -62,4 +62,5 @@ struct Jugador{
 	int puntuacion = 0;					//Puntuacion del jugador
 	char direccion = 'R';				//Direccion horizontal en la que se mueve en el momento R|L
 	bool vivo = true;						//Vivo o muerto
+	bool gameOver = false;				//Si hemos perdido una vida
 };

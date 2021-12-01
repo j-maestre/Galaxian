@@ -20,11 +20,11 @@ int velocidad_jugador = 5;
 int velocidad_disparo_player = 15;
 char direccion_enemigos = 'R';                   //Direccion horizontal en la que se mueven los enemigos R|L
 
-int frecuencia_verde = 100;
-int frecuencia_rosa = 150;
-int frecuencia_rojo = 170;
-int frecuencia_amarillo = 200;
-int frecuencia = 4;
+int frecuencia_verde = 150;
+int frecuencia_rosa = 200;
+int frecuencia_rojo = 210;
+int frecuencia_amarillo = 250;
+int frecuencia = 3;
 int cont_frecuencia = 0;
 
 //Indices de quien puede atacar (esquinas)

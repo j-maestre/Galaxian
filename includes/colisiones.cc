@@ -22,9 +22,10 @@ void ColisionDispEnemigos(){
           //Dejamos de disparar
           players[player_actual].disparo.disparando = false;
 
-          //Sumamos el score y comprobamos el score maximo
-          score1+=players[player_actual].enemigos[i].score;
-          // if(score1 > max_score) max_score=score1;
+          //Sumamos el score al jugador
+          player_actual==0?score1+=players[player_actual].enemigos[i].score: score2+=players[player_actual].enemigos[i].score;
+         
+
         }//End colision
       }//End if vivo && !colisionado
 
@@ -37,14 +38,16 @@ void ColisionDispEnemigos(){
 void ColisionDispJugador(){
   if(!players[player_actual].explosion.explotando){
     for(int i = 0; i< N_ENEMIGOS; ++i){
-      if(players[player_actual].enemigos[i].disparo.x > players[player_actual].x-18 && players[player_actual].enemigos[i].disparo.x < players[player_actual].x+18 && players[player_actual].enemigos[i].disparo.y > players[player_actual].y && players[player_actual].enemigos[i].disparo.y < players[player_actual].y+33){
+      if(players[player_actual].enemigos[i].disparo.x > players[player_actual].x-22 && players[player_actual].enemigos[i].disparo.x < players[player_actual].x+22 && players[player_actual].enemigos[i].disparo.y > players[player_actual].y && players[player_actual].enemigos[i].disparo.y < players[player_actual].y+33){
         printf("COLISION");
         players[player_actual].explosion.explotando = true;
         players[player_actual].explosion.x = players[player_actual].x;
         players[player_actual].explosion.y = players[player_actual].y;
         players[player_actual].vidas--;
+        players[player_actual].enemigos[i].disparo.disparando = false;
         players[player_actual].enemigos[i].disparo.x = -20;
         players[player_actual].enemigos[i].disparo.y = -20;
+        
       }
 
     }
