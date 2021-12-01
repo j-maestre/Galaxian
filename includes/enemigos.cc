@@ -108,6 +108,8 @@ void Disparar(int index){
 
 
 void Descender(int index, esat::SpriteHandle sprite){
+ // printf("----Descendiendo-----\n");
+ // printf("Posicion de partida del %d-> x:%d y:%d\n",index,players[player_actual].enemigos[index].descensoX, players[player_actual].enemigos[index].descensoY);
   if(players[player_actual].enemigos[index].vivo && !players[player_actual].enemigos[index].fin_descenso){
     //velocidad_enemigos_descenso--;
     players[player_actual].enemigos[index].descensoY+=velocidad_enemigos_descenso;
@@ -244,66 +246,207 @@ void PrintEnemigos(){
 
 
 void CalcularDescenso(){
+  
   cont_frecuencia++;
   if(cont_frecuencia%(fps*frecuencia) == 0){
+    //Sorteamos la frecuencia en la que sale
+    frecuencia = 1 + rand()%4;
+    printf("Frecuencia %d\n",frecuencia);
     int random = rand()%251;
+    //DEBUG
+    random = 249;
     printf("Sacamos num random: %d\n", random);
     if(random<=frecuencia_verde){
       //Baja un verde
       printf("VERDE \n");
+      int index1, index2;
+      //Decidir que fila sale
       //decidir si sale por la izquierda o por la derecha
+      int random = rand()%3;
+      if(random == 0){
+        //Sale la primera fila
+        index1 = indexAtaqueA1;
+        index2 = indexAtaqueA2;
+      }else if(random == 1){
+        //Sale la segunda fila
+        index1 = indexAtaqueB1;
+        index2 = indexAtaqueB2;
+      }else{
+        //Sale la tercera fila
+        index1 = indexAtaqueC1;
+        index2 = indexAtaqueC2;
+      }
       if(rand()%2==0){
         //Sale por la izquierda
         printf("Sale por la izquierda\n");
-        if(!players[player_actual].enemigos[indexAtaqueA1].descendiendo){
+        if(!players[player_actual].enemigos[index1].descendiendo){
           //Si el de la esquina no está descendiendo ya, que descienda y que vaya hacia la derecha
-          players[player_actual].enemigos[indexAtaqueA1].descendiendo = true;
-          players[player_actual].enemigos[indexAtaqueA1].direccion_descenso = 'R';
-          players[player_actual].enemigos[indexAtaqueA1].fin_descenso = false;
-          players[player_actual].enemigos[indexAtaqueA1].descensoX = players[player_actual].enemigos[indexAtaqueA1].x;
-          players[player_actual].enemigos[indexAtaqueA1].descensoY = players[player_actual].enemigos[indexAtaqueA1].y;
+          players[player_actual].enemigos[index1].descendiendo = true;
+          players[player_actual].enemigos[index1].direccion_descenso = 'R';
+          players[player_actual].enemigos[index1].fin_descenso = false;
+          players[player_actual].enemigos[index1].descensoX = players[player_actual].enemigos[index1].x;
+          players[player_actual].enemigos[index1].descensoY = players[player_actual].enemigos[index1].y;
         }else{
           //si ya está descendiendo, comprobamos que el siguiente no esté muerto y que no esté descendiendo y le decimos que descienda
-          if(!enemigos[indexAtaqueA1+1].descendiendo && enemigos[indexAtaqueA1+1].vivo){
-            enemigos[indexAtaqueA1+1].descendiendo = true;
-            enemigos[indexAtaqueA1+1].direccion_descenso = 'R';
+          if(!players[player_actual].enemigos[index1+1].descendiendo && players[player_actual].enemigos[index1+1].vivo){
+            players[player_actual].enemigos[index1+1].descendiendo = true;
+            players[player_actual].enemigos[index1+1].direccion_descenso = 'R';
 
             //Marcamos la posicion en la que desciende
-            enemigos[indexAtaqueA1+1].fin_descenso = false;
-            enemigos[indexAtaqueA1+1].descensoX = players[player_actual].enemigos[indexAtaqueA1].x;
-            enemigos[indexAtaqueA1+1].descensoY = players[player_actual].enemigos[indexAtaqueA1].y;
+            players[player_actual].enemigos[index1+1].fin_descenso = false;
+            players[player_actual].enemigos[index1+1].descensoX = players[player_actual].enemigos[index1].x;
+            players[player_actual].enemigos[index1+1].descensoY = players[player_actual].enemigos[index1].y;
           }
         }
       }else{
         //Sale por la derecha
         printf("Sale por la derecha\n");
-        if(!players[player_actual].enemigos[indexAtaqueA2].descendiendo){
+        if(!players[player_actual].enemigos[index2].descendiendo){
           //Si el de la esquina no está descendiendo ya, que descienda
-          players[player_actual].enemigos[indexAtaqueA2].descendiendo = true;
-          players[player_actual].enemigos[indexAtaqueA2].direccion_descenso = 'L';
-          players[player_actual].enemigos[indexAtaqueA2].fin_descenso = false;
-          players[player_actual].enemigos[indexAtaqueA2].descensoX = players[player_actual].enemigos[indexAtaqueA2].x;
-          players[player_actual].enemigos[indexAtaqueA2].descensoY = players[player_actual].enemigos[indexAtaqueA2].y;
+          players[player_actual].enemigos[index2].descendiendo = true;
+          players[player_actual].enemigos[index2].direccion_descenso = 'L';
+          players[player_actual].enemigos[index2].fin_descenso = false;
+          players[player_actual].enemigos[index2].descensoX = players[player_actual].enemigos[index2].x;
+          players[player_actual].enemigos[index2].descensoY = players[player_actual].enemigos[index2].y;
         }else{
           //si ya está descendiendo, comprobamos que el siguiente no esté muerto y que no esté descendiendo y le decimos que descienda
-          if(!enemigos[indexAtaqueA2-1].descendiendo && enemigos[indexAtaqueA1-1].vivo){
-            enemigos[indexAtaqueA2-1].descendiendo = true;
-            enemigos[indexAtaqueA2-1].direccion_descenso = 'L';
-            enemigos[indexAtaqueA2-1].fin_descenso = false;
-            enemigos[indexAtaqueA2-1].descensoX = enemigos[indexAtaqueA2-1].x;
-            enemigos[indexAtaqueA2-1].descensoY = enemigos[indexAtaqueA2-1].y;
+          if(!players[player_actual].enemigos[index2-1].descendiendo && players[player_actual].enemigos[indexAtaqueA2-1].vivo){
+            players[player_actual].enemigos[index2-1].descendiendo = true;
+            players[player_actual].enemigos[index2-1].direccion_descenso = 'L';
+            players[player_actual].enemigos[index2-1].fin_descenso = false;
+            players[player_actual].enemigos[index2-1].descensoX = players[player_actual].enemigos[index2-1].x;
+            players[player_actual].enemigos[index2-1].descensoY = players[player_actual].enemigos[index2-1].y;
           }
         }
       }
     }else if(random>frecuencia_verde && random<=frecuencia_rosa){
       //Baja un rosa
       printf("ROSA \n");
+      //decidir si sale por la izquierda o por la derecha
+      if(rand()%2==0){
+        //Sale por la izquierda
+        printf("Sale por la izquierda\n");
+        printf("Indes Atauqe D1: %d\n",indexAtaqueD1);
+        if(!players[player_actual].enemigos[indexAtaqueD1].descendiendo){
+          //Si el de la esquina no está descendiendo ya, que descienda y que vaya hacia la derecha
+          players[player_actual].enemigos[indexAtaqueD1].descendiendo = true;
+          players[player_actual].enemigos[indexAtaqueD1].direccion_descenso = 'R';
+          players[player_actual].enemigos[indexAtaqueD1].fin_descenso = false;
+          players[player_actual].enemigos[indexAtaqueD1].descensoX = players[player_actual].enemigos[indexAtaqueD1].x;
+          players[player_actual].enemigos[indexAtaqueD1].descensoY = players[player_actual].enemigos[indexAtaqueD1].y;
+        }else{
+          //si ya está descendiendo, comprobamos que el siguiente no esté muerto y que no esté descendiendo y le decimos que descienda
+          if(!players[player_actual].enemigos[indexAtaqueD1+1].descendiendo && players[player_actual].enemigos[indexAtaqueD1+1].vivo){
+            players[player_actual].enemigos[indexAtaqueD1+1].descendiendo = true;
+            players[player_actual].enemigos[indexAtaqueD1+1].direccion_descenso = 'R';
+
+            //Marcamos la posicion en la que desciende
+            players[player_actual].enemigos[indexAtaqueD1+1].fin_descenso = false;
+            players[player_actual].enemigos[indexAtaqueD1+1].descensoX = players[player_actual].enemigos[indexAtaqueD1].x;
+            players[player_actual].enemigos[indexAtaqueD1+1].descensoY = players[player_actual].enemigos[indexAtaqueD1].y;
+          }
+        }
+      }else{
+        //Sale por la derecha
+        printf("Sale por la derecha\n");
+        if(!players[player_actual].enemigos[indexAtaqueD2].descendiendo){
+          //Si el de la esquina no está descendiendo ya, que descienda
+          players[player_actual].enemigos[indexAtaqueD2].descendiendo = true;
+          players[player_actual].enemigos[indexAtaqueD2].direccion_descenso = 'L';
+          players[player_actual].enemigos[indexAtaqueD2].fin_descenso = false;
+          players[player_actual].enemigos[indexAtaqueD2].descensoX = players[player_actual].enemigos[indexAtaqueD2].x;
+          players[player_actual].enemigos[indexAtaqueD2].descensoY = players[player_actual].enemigos[indexAtaqueD2].y;
+        }else{
+          //si ya está descendiendo, comprobamos que el siguiente no esté muerto y que no esté descendiendo y le decimos que descienda
+          if(!players[player_actual].enemigos[indexAtaqueD2-1].descendiendo && players[player_actual].enemigos[indexAtaqueD2-1].vivo){
+            players[player_actual].enemigos[indexAtaqueD2-1].descendiendo = true;
+            players[player_actual].enemigos[indexAtaqueD2-1].direccion_descenso = 'L';
+            players[player_actual].enemigos[indexAtaqueD2-1].fin_descenso = false;
+            players[player_actual].enemigos[indexAtaqueD2-1].descensoX = players[player_actual].enemigos[indexAtaqueD2-1].x;
+            players[player_actual].enemigos[indexAtaqueD2-1].descensoY = players[player_actual].enemigos[indexAtaqueD2-1].y;
+          }
+        }
+      }
     }else if(random>frecuencia_rosa && random<=frecuencia_rojo){
       //baja un rojo
       printf("ROJO \n");
+      
     }else if(random>frecuencia_rojo && random<=frecuencia_amarillo){
       //Baja un amarillo con rojos o solo si no quedan
       printf("AMARILLO \n");
+
+      if(rand()%2==0){
+        //Sale el de la izquierda si no está ya descendiendo y está vivo
+        printf("Izquierda \n");
+        if(!players[player_actual].enemigos[44].descendiendo && players[player_actual].enemigos[44].vivo){
+          players[player_actual].enemigos[44].descendiendo = true;
+          players[player_actual].enemigos[44].direccion_descenso = 'R';
+          players[player_actual].enemigos[44].fin_descenso = false;
+          players[player_actual].enemigos[44].descensoX = players[player_actual].enemigos[44].x;
+          players[player_actual].enemigos[44].descensoY = players[player_actual].enemigos[44].y;
+          
+          //Escuadron del amarillo
+          if(players[player_actual].enemigos[38].vivo && !players[player_actual].enemigos[38].descendiendo){
+            players[player_actual].enemigos[38].descendiendo=true;
+            players[player_actual].enemigos[38].direccion_descenso = 'R';
+            players[player_actual].enemigos[38].fin_descenso = false;
+            players[player_actual].enemigos[38].descensoX = players[player_actual].enemigos[38].x;
+            players[player_actual].enemigos[38].descensoY = players[player_actual].enemigos[38].y;
+          }
+          if(players[player_actual].enemigos[39].vivo && !players[player_actual].enemigos[39].descendiendo){
+            players[player_actual].enemigos[39].descendiendo=true;
+            players[player_actual].enemigos[39].direccion_descenso = 'R';
+            players[player_actual].enemigos[39].fin_descenso = false;
+            players[player_actual].enemigos[39].descensoX = players[player_actual].enemigos[39].x;
+            players[player_actual].enemigos[39].descensoY = players[player_actual].enemigos[39].y;
+          }
+          if(players[player_actual].enemigos[40].vivo && !players[player_actual].enemigos[40].descendiendo){
+            players[player_actual].enemigos[40].descendiendo=true;
+            players[player_actual].enemigos[40].direccion_descenso = 'R';
+            players[player_actual].enemigos[40].fin_descenso = false;
+            players[player_actual].enemigos[40].descensoX = players[player_actual].enemigos[40].x;
+            players[player_actual].enemigos[40].descensoY = players[player_actual].enemigos[40].y;
+          }
+          printf("Empieza a descender desde x:%d y:%d\n",players[player_actual].enemigos[45].descensoX,players[player_actual].enemigos[45].descensoY);
+        }
+      }else{
+        //Sale el de la derecha si no está ya descendiendo y está vivo
+        printf("Derecha \n");
+        if(!players[player_actual].enemigos[45].descendiendo && players[player_actual].enemigos[45].vivo){
+          players[player_actual].enemigos[45].descendiendo = true;
+          players[player_actual].enemigos[45].direccion_descenso = 'L';
+          players[player_actual].enemigos[45].fin_descenso = false;
+          
+          players[player_actual].enemigos[45].descensoX = players[player_actual].enemigos[45].x;
+          players[player_actual].enemigos[45].descensoY = players[player_actual].enemigos[45].y;
+
+          //Escuadron del amarillo
+          if(players[player_actual].enemigos[41].vivo && !players[player_actual].enemigos[41].descendiendo){
+            players[player_actual].enemigos[41].descendiendo=true;
+            players[player_actual].enemigos[41].direccion_descenso = 'L';
+            players[player_actual].enemigos[41].fin_descenso = false;
+            players[player_actual].enemigos[41].descensoX = players[player_actual].enemigos[41].x;
+            players[player_actual].enemigos[41].descensoY = players[player_actual].enemigos[41].y;
+          }
+          if(players[player_actual].enemigos[42].vivo && !players[player_actual].enemigos[42].descendiendo){
+            players[player_actual].enemigos[42].descendiendo=true;
+            players[player_actual].enemigos[42].direccion_descenso = 'L';
+            players[player_actual].enemigos[42].fin_descenso = false;
+            players[player_actual].enemigos[42].descensoX = players[player_actual].enemigos[42].x;
+            players[player_actual].enemigos[42].descensoY = players[player_actual].enemigos[42].y;
+          }
+          if(players[player_actual].enemigos[43].vivo && !players[player_actual].enemigos[43].descendiendo){
+            players[player_actual].enemigos[43].descendiendo=true;
+            players[player_actual].enemigos[43].direccion_descenso = 'L';
+            players[player_actual].enemigos[43].fin_descenso = false;
+            players[player_actual].enemigos[43].descensoX = players[player_actual].enemigos[43].x;
+            players[player_actual].enemigos[43].descensoY = players[player_actual].enemigos[43].y;
+          }
+          
+          printf("Empieza a descender desde x:%d y:%d\n",players[player_actual].enemigos[45].descensoX,players[player_actual].enemigos[45].descensoY);
+        }
+      }
+
     }
   }
 
@@ -316,6 +459,18 @@ void ComprobarFila(){
   if(!players[player_actual].enemigos[20].vivo && !players[player_actual].enemigos[21].vivo && !players[player_actual].enemigos[22].vivo && !players[player_actual].enemigos[23].vivo && !players[player_actual].enemigos[24].vivo && !players[player_actual].enemigos[25].vivo && !players[player_actual].enemigos[26].vivo && !players[player_actual].enemigos[27].vivo && !players[player_actual].enemigos[28].vivo && !players[player_actual].enemigos[29].vivo)fila3 = false;
   if(!players[player_actual].enemigos[30].vivo && !players[player_actual].enemigos[31].vivo && !players[player_actual].enemigos[32].vivo && !players[player_actual].enemigos[33].vivo && !players[player_actual].enemigos[34].vivo && !players[player_actual].enemigos[35].vivo && !players[player_actual].enemigos[36].vivo && !players[player_actual].enemigos[37].vivo)fila4 = false;
   if(!players[player_actual].enemigos[38].vivo && !players[player_actual].enemigos[39].vivo && !players[player_actual].enemigos[40].vivo && !players[player_actual].enemigos[41].vivo && !players[player_actual].enemigos[42].vivo && !players[player_actual].enemigos[43].vivo )fila5 = false;
+
+  if(!fila1 && !fila2 && !fila3 && !fila4 && !fila5){
+    players[player_actual].levels++;
+    CreateEnemigos();
+    start = false;
+    fila1 = true;
+    fila2 = true;
+    fila3 = true;
+    fila4 = true;
+    fila5 = true;
+  }
+
 }
 
 void PuedeAtacar(){
@@ -352,6 +507,7 @@ void PuedeAtacar(){
 
     }while(!ataqueConfirmadoA2);
   }
+  
 
   if(fila2){
   //Segunda fila esquina izquierda
@@ -417,8 +573,8 @@ void PuedeAtacar(){
         players[player_actual].enemigos[indexAtaqueD1].esquina = false;
         ++indexAtaqueD1;
       }else{
-        players[player_actual].enemigos[indexAtaqueD1].esquina = true;
         ataqueConfirmadoD1 = true;
+        players[player_actual].enemigos[indexAtaqueD1].esquina = true;
       }
 
     }while(!ataqueConfirmadoD1);
@@ -472,6 +628,31 @@ void PuedeAtacar(){
 
 
 };
+
+void AmarilloKilled(){
+  if(amarilloKill){
+    amarilloKilledCount++;
+    printf("Han matado al chino cudeiro!\n");
+    //string text = sprintf("%d",players[player_actual].enemigos[amarilloKillIndex].score);
+    ResetColor(255,0,0);
+
+
+//    string toString(int num) {
+//	//Basic function to convert int to string
+//	char buffer[33];
+//	return itoa (num,buffer,10);
+//}
+
+    string num_toString = toString(players[player_actual].enemigos[amarilloKillIndex].score);
+    const char *num_toChar = num_toString.c_str();
+
+    //esat::DrawText(amarilloKillX,amarilloKillY,num_toChar);
+    if(amarilloKilledCount >= fps*2){
+      amarilloKilledCount = 1;
+      amarilloKill = false;
+    }
+  }
+}
 
 
 void debugEnemigos(){

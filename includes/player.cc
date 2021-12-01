@@ -70,3 +70,26 @@ void PrintPlayer(){
 void DebugPlayer(){
     printf("DEBUG Player Disparo Y:%d X:%d \n",players[0].disparo.y,players[0].disparo.x);
 }
+
+
+
+void CheckGameOver(){
+    if(!debug){
+
+        
+        if(N_players == 1 && players[0].vidas <=0){
+            //Fin del juego
+            gameOver = true;
+            credits--;
+        }else if(N_players == 2 && players[0].vidas <= 0 && players[1].vidas <= 0){
+            //Fin del juego
+        }
+    }
+}
+
+
+void Levels(){
+    for(int i = 1; i < players[player_actual].levels+1; i++){ 
+        esat::DrawSprite(bandera, (ANCHO*3) - (i*27),(ALTO*3) - 100);
+    }
+}

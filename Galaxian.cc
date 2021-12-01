@@ -12,7 +12,7 @@ int esat::main(int argc, char **argv) {
 	CreateSprites();
 	//CreatePlayer();
 	//CreateEnemigos();
-	//debugEnemigos();
+
 	//End creating items
 
 	esat::DrawSetTextFont(FONT_PATH);
@@ -28,28 +28,30 @@ int esat::main(int argc, char **argv) {
 			if(!interfaz){
 				interfaz = Interfaz();
 				Credits(&credits);
-			}else{
+			}else if(!gameOver){
 				PrintEnemigos();
 				if(!start){
 					start = Start();
-
+					//debugEnemigos();
 				}else{
-					// printf("Velocidad disparo: %d\n",velocidad_disparo_player);
 					//LLamar al jugador
 					PrintPlayer();
 					Vidas();
+					Levels();
 					//Comprobar que toda la fila siga viva
 					ComprobarFila();
 					//Solo pueden atacar los que están en las esquinas
 					PuedeAtacar();
 					CheckColisiones();
 					CalcularDescenso();
-					DebugPlayer();
+					//DebugPlayer();
+					AmarilloKilled();
+					CheckGameOver();
 
 					//Si el player actual ha perdido una vida
 					if(players[player_actual].gameOver){
 
-						//Marcamos el game over del jugador anterior como false
+						//Marcamos el game over del jugador como false
 						players[player_actual].gameOver = false;
 
 						//Si tenemos 2 jugadores, cambiamos al jugador y le asignamos sus aliens
@@ -63,12 +65,15 @@ int esat::main(int argc, char **argv) {
 							start = false;
 						}
 
-
+						players[player_actual].x = 350;
+						players[player_actual].y = 600;
 
 					}
 				}
 
 			}
+
+			if(gameOver)GameOver();
 
     	esat::DrawEnd();
     	//Control fps
@@ -81,7 +86,5 @@ int esat::main(int argc, char **argv) {
 
   ReleaseSprites();
   esat::WindowDestroy();
-//   printf("END\n");
-//   debugEnemigos();
   return 0;
 }

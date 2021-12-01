@@ -45,6 +45,8 @@ bool interfaz = false;
 bool start = false;
 bool win = false;
 bool gameOver = false;
+bool amarilloKill = false;
+int amarilloKillX,amarilloKillY, amarilloKillIndex, amarilloKilledCount = 1;
 int player_actual = 0;
 
 char Intro_l1 [22] = "WE ARE THE GALAXIANS\0";
@@ -59,6 +61,7 @@ esat::SpriteHandle logo;
 esat::SpriteHandle flecha;
 esat::SpriteHandle namcot;
 esat::SpriteHandle vidas;
+esat::SpriteHandle bandera;
 esat::SpriteHandle player;
 esat::SpriteHandle playerDisparando;
 esat::SpriteHandle playerExplosion [4];
@@ -88,7 +91,7 @@ int fps_count_explosion = 1;
 int fps_count_explosion_player = 1;
 
 Jugador players[2];
-Enemigo enemigos[46];
+//Enemigo enemigos[46];
 
 
 // esat::SpriteHandle logo = esat::SubSprite(spritesheet,0,843,843,132);

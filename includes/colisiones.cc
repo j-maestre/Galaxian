@@ -6,6 +6,18 @@ void ColisionDispEnemigos(){
         if(players[player_actual].disparo.x > players[player_actual].enemigos[i].x-18 && players[player_actual].disparo.x < players[player_actual].enemigos[i].x+18 && players[player_actual].disparo.y > players[player_actual].enemigos[i].y && players[player_actual].disparo.y < players[player_actual].enemigos[i].y+33  || 
            players[player_actual].disparo.x > players[player_actual].enemigos[i].descensoX-18 && players[player_actual].disparo.x < players[player_actual].enemigos[i].descensoX+18 && players[player_actual].disparo.y > players[player_actual].enemigos[i].descensoY && players[player_actual].disparo.y < players[player_actual].enemigos[i].descensoY+33){
           printf("COLISION EN x: %d y: %d\n", players[player_actual].enemigos[i].x,players[player_actual].enemigos[i].y);
+          
+          if(i == 44 || i == 45){
+            if(players[player_actual].enemigos[i].descendiendo){
+              amarilloKillX = players[player_actual].enemigos[i].descensoX; 
+              amarilloKillY = players[player_actual].enemigos[i].descensoY;
+            }else{
+              amarilloKillX = players[player_actual].enemigos[i].x; 
+              amarilloKillY = players[player_actual].enemigos[i].y;
+            }
+            amarilloKillIndex = i;
+            amarilloKill = true;
+          }
           //Matamos al elien
           players[player_actual].enemigos[i].vivo = false;
 

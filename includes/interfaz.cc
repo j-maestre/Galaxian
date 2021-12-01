@@ -13,6 +13,7 @@ void CreateSprites(){
   flecha = esat::SubSprite(spritesheet,360,1106,23,22);
   namcot = esat::SpriteFromFile("./assets/sprites/namcot.png");
   vidas = esat::SubSprite(spritesheet,382,712,21,28);
+  bandera = esat::SubSprite(spritesheet,408,701,24,39);
   playerDisparando = esat::SubSprite(spritesheet,57,691,40,49); //Este sprite hay que pintarlo 12px mas abajo que el otro porque mide menos
   player = esat::SubSprite(spritesheet,6,679,40,61);
   disparoPlayer = esat::SubSprite(spritesheet,114,676,4,11);
@@ -50,10 +51,6 @@ string toString(int num) {
 	return itoa (num,buffer,10);
 }
 
-void ResetColor(int r = 255,int g = 255,int b = 255){
-    esat::DrawSetStrokeColor(r,g,b);
-    esat::DrawSetFillColor(r,g,b);
-}
 
 void printScore(int x, int y, int num, RGB color){
   //Convertimos el int a string
@@ -332,6 +329,7 @@ bool Start(){
     if(player_actual==1)esat::DrawText(250,450,"PLAYER TWO");
     
   }else{
+    fps_count_start = 1;
     return true;
   }
 
@@ -343,6 +341,12 @@ void Vidas(){
   for (int i = 0; i < players[player_actual].vidas-1; i++) {
     esat::DrawSprite(vidas,(i+1)*30,ALTO*3 -50);
   }
+}
+
+void GameOver(){
+    Credits(&credits);
+    ResetColor(255,0,0);
+    esat::DrawText((ANCHO*3)/2.5,(ALTO*3)/1.5,"GAME OVER");
 }
 
 void ReleaseSprites(){

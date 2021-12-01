@@ -13,6 +13,16 @@
 #include <thread>
 #include <iostream>
 
+
+
+void ResetColor(int r = 255,int g = 255,int b = 255){
+    esat::DrawSetStrokeColor(r,g,b);
+    esat::DrawSetFillColor(r,g,b);
+}
+
+
+
+
 #include "includes/structs.cc"
 #include "includes/variables.cc"
 #include "includes/background.cc"
