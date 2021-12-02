@@ -12,14 +12,24 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
+#include <string>
+using namespace std;
+using std::cout;  //Similar a printf
+using std::endl;
+using std::copy;
+using std::this_thread::sleep_for;     //Bloquea la ejecucion del proceso actual durante al menos el tiempo especificado
+using namespace std::chrono_literals;  //Capacidad para acceder a las clases de la libreria crono
 
-
+string toString(int num) {
+	//Basic function to convert int to string
+	char buffer[33];
+	return itoa (num,buffer,10);
+}
 
 void ResetColor(int r = 255,int g = 255,int b = 255){
     esat::DrawSetStrokeColor(r,g,b);
     esat::DrawSetFillColor(r,g,b);
 }
-
 
 
 

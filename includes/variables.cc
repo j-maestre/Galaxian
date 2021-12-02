@@ -15,7 +15,7 @@ int score1 = 0, score2 = 0, max_score = 0;
 int frames_count = -1, score_frames_count = 0;
 int credits = 0, N_players = 1;
 int velocidad_enemigos = 1, velocidad_enemigos_disparo = 8;
-int velocidad_enemigos_descenso = 3,  velocidad_enemigos_descenso_x = 3;
+int velocidad_enemigos_descenso = 2,  velocidad_enemigos_descenso_x = 4;
 int velocidad_jugador = 5;
 int velocidad_disparo_player = 15;
 char direccion_enemigos = 'R';                   //Direccion horizontal en la que se mueven los enemigos R|L
@@ -24,7 +24,7 @@ int frecuencia_verde = 150;
 int frecuencia_rosa = 200;
 int frecuencia_rojo = 210;
 int frecuencia_amarillo = 250;
-int frecuencia = 3;
+int frecuencia = 4;
 int cont_frecuencia = 0;
 
 //Indices de quien puede atacar (esquinas)
@@ -57,6 +57,7 @@ int score_title2_x = 0;
 int score_yellow [4]={150,800,300,200}, cont_score_yellow = 0;
 
 esat::SpriteHandle spritesheet;
+esat::SpriteHandle spritesheet_invertido;
 esat::SpriteHandle logo;
 esat::SpriteHandle flecha;
 esat::SpriteHandle namcot;
@@ -68,11 +69,14 @@ esat::SpriteHandle playerExplosion [4];
 esat::SpriteHandle alienAmarillo;
 esat::SpriteHandle alienRojo;
 esat::SpriteHandle animacion_alienRojo [4];
+esat::SpriteHandle inclinacion_alienRojo[6];
 esat::SpriteHandle alienRosa;
 esat::SpriteHandle animacion_alienRosa [4];
+esat::SpriteHandle inclinacion_alienRosa[6];
 esat::SpriteHandle alienVerde;
 esat::SpriteHandle animacion_alienVerde [4];
-esat::SpriteHandle explosion_alien [4];
+esat::SpriteHandle inclinacion_alienVerde[11];
+esat::SpriteHandle explosion_alien[4];
 esat::SpriteHandle disparoPlayer;
 esat::SpriteHandle disparoEnemigo;
 int animacion_selector = 0;

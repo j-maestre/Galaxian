@@ -106,6 +106,91 @@ void Disparar(int index){
   }
 }
 
+esat::SpriteHandle AnimacionDescenso(int index){
+  printf("Animacion descenso\n");
+  //Calcular aqui lo cerca que está del jugador para disminuir o aumentar la velocidad en la que se mueve
+  int index_animacion = 0;
+  //Inclinacion parte izquierda
+  
+  if(players[player_actual].enemigos[index].direccion_descenso == 'L'){
+      if(players[player_actual].enemigos[index].descensoX < players[player_actual].x-80 && players[player_actual].enemigos[index].descensoX < players[player_actual].x -100){
+        //Sexto sprite
+        printf("Sexto sprite\n");
+        index_animacion = 5;
+        // velocidad_enemigos_descenso = 1;
+        velocidad_enemigos_descenso_x = 1;
+
+        
+      }else if(players[player_actual].enemigos[index].descensoX < players[player_actual].x-60 && players[player_actual].enemigos[index].descensoX < players[player_actual].x -80){
+        //Quinto sprite
+        printf("Quinto sprite\n");
+        index_animacion = 4;
+        // velocidad_enemigos_descenso = 2;
+        velocidad_enemigos_descenso_x = 2;
+      }else if(players[player_actual].enemigos[index].descensoX < players[player_actual].x-40 && players[player_actual].enemigos[index].descensoX < players[player_actual].x -60){
+        //Cuarto sprite
+        printf("Cuarto sprite\n");
+        index_animacion = 3;
+        // velocidad_enemigos_descenso = 3;
+        velocidad_enemigos_descenso_x = 3;
+      }else if(players[player_actual].enemigos[index].descensoX < players[player_actual].x-20 && players[player_actual].enemigos[index].descensoX < players[player_actual].x -40){
+        //Tercer sprite
+        printf("Tercer sprite\n");
+        index_animacion = 2;
+        // velocidad_enemigos_descenso = 4;
+        velocidad_enemigos_descenso_x = 4;
+      }else if(players[player_actual].enemigos[index].descensoX < players[player_actual].x && players[player_actual].enemigos[index].descensoX < players[player_actual].x -20){
+        //Segundo sprite
+        printf("Segundo sprite\n");
+        index_animacion = 1;
+        // velocidad_enemigos_descenso = 5;
+        velocidad_enemigos_descenso_x = 4;
+      }else{
+        velocidad_enemigos_descenso_x = 4;
+      }
+      }
+
+        if(players[player_actual].enemigos[index].direccion_descenso == 'R'){
+      //Inclinacion parte derecha
+  
+      if(players[player_actual].enemigos[index].descensoX > players[player_actual].x+80 && players[player_actual].enemigos[index].descensoX > players[player_actual].x +100){
+        //Sexto sprite
+        printf("Sexto sprite\n");
+        index_animacion = 9;
+        velocidad_enemigos_descenso_x = 1;
+
+      }else if(players[player_actual].enemigos[index].descensoX > players[player_actual].x+60 && players[player_actual].enemigos[index].descensoX > players[player_actual].x + 80){
+        //Quinto sprite
+        printf("Quinto sprite\n");
+        index_animacion = 8;
+        // velocidad_enemigos_descenso = 2;
+        velocidad_enemigos_descenso_x = 2;
+      }else if(players[player_actual].enemigos[index].descensoX > players[player_actual].x+40 && players[player_actual].enemigos[index].descensoX > players[player_actual].x + 60){
+        //Cuarto sprite
+        printf("Cuarto sprite\n");
+        index_animacion = 7;
+        // velocidad_enemigos_descenso = 3;
+        velocidad_enemigos_descenso_x = 3;
+      }else if(players[player_actual].enemigos[index].descensoX > players[player_actual].x+20 && players[player_actual].enemigos[index].descensoX > players[player_actual].x + 40){
+        //Tercer sprite
+        printf("Tercer sprite\n");
+        index_animacion = 6;
+        // velocidad_enemigos_descenso = 4;
+        velocidad_enemigos_descenso_x = 4;
+      }else if(players[player_actual].enemigos[index].descensoX > players[player_actual].x && players[player_actual].enemigos[index].descensoX > players[player_actual].x + 20){
+        //Segundo sprite
+        printf("Segundo sprite\n");
+        index_animacion = 5;
+        // velocidad_enemigos_descenso = 5;
+        velocidad_enemigos_descenso_x = 4;
+      }else{
+        velocidad_enemigos_descenso_x = 4;
+      }
+      }
+
+      return inclinacion_alienVerde[index_animacion];
+}
+
 
 void Descender(int index, esat::SpriteHandle sprite){
  // printf("----Descendiendo-----\n");
@@ -127,6 +212,7 @@ void Descender(int index, esat::SpriteHandle sprite){
     
     //Lo mismo para la parte izquierda
     if(players[player_actual].enemigos[index].descensoX > players[player_actual].x-100 && players[player_actual].enemigos[index].direccion_descenso == 'L'){
+      //Movimiento de derecha a izquierda lineal
       players[player_actual].enemigos[index].descensoX-= velocidad_enemigos_descenso_x;
     }else{
       players[player_actual].enemigos[index].direccion_descenso = 'R';
@@ -197,20 +283,27 @@ void PrintEnemigos(){
       players[player_actual].enemigos[i].index_animacion>=3?players[player_actual].enemigos[i].index_animacion=0:++players[player_actual].enemigos[i].index_animacion;
     }
     esat::SpriteHandle sprite;
-    switch (players[player_actual].enemigos[i].type) {
-      case 'G':
-        sprite = animacion_alienVerde[players[player_actual].enemigos[i].index_animacion];
-      break;
-      case 'P':
-        sprite = animacion_alienRosa[players[player_actual].enemigos[i].index_animacion];
-      break;
-      case 'R':
-        sprite = animacion_alienRojo[players[player_actual].enemigos[i].index_animacion];
-      break;
-      case 'Y':
-        sprite = alienAmarillo;
-      break;
+    if(!players[player_actual].enemigos[i].descendiendo){
+
+      switch (players[player_actual].enemigos[i].type) {
+        case 'G':
+          sprite = animacion_alienVerde[players[player_actual].enemigos[i].index_animacion];
+        break;
+        case 'P':
+          sprite = animacion_alienRosa[players[player_actual].enemigos[i].index_animacion];
+        break;
+        case 'R':
+          sprite = animacion_alienRojo[players[player_actual].enemigos[i].index_animacion];
+        break;
+        case 'Y':
+          sprite = alienAmarillo;
+        break;
+      }
+    }else{
+      //Comprobamos si está descendiendo y pedimos su sprite correspondiente
+      if(players[player_actual].enemigos[i].descendiendo)sprite = AnimacionDescenso(i);
     }
+    
     //Si cualquier alien está vivo y ha tocado el borde derecho, invertimos la dirección
     if(players[player_actual].enemigos[i].vivo && players[player_actual].enemigos[i].x + 33 >=ANCHO*3)direccion_enemigos = 'L';
 
@@ -239,7 +332,7 @@ void PrintEnemigos(){
     //Si está descendiendo, llamamos a la funcion de descenso y le pasamos el index de quien está descendiendo y su sprite
     if(players[player_actual].enemigos[i].descendiendo){
       Descender(i, sprite);
-      Disparar(i);
+      if(!players[player_actual].enemigos[i].fin_descenso)Disparar(i);
     }
   }
 }
@@ -250,11 +343,11 @@ void CalcularDescenso(){
   cont_frecuencia++;
   if(cont_frecuencia%(fps*frecuencia) == 0){
     //Sorteamos la frecuencia en la que sale
-    frecuencia = 1 + rand()%4;
+    frecuencia = 1 + rand()%3;
     printf("Frecuencia %d\n",frecuencia);
     int random = rand()%251;
     //DEBUG
-    random = 249;
+    // random = 249;
     printf("Sacamos num random: %d\n", random);
     if(random<=frecuencia_verde){
       //Baja un verde
@@ -635,22 +728,14 @@ void AmarilloKilled(){
     printf("Han matado al chino cudeiro!\n");
     //string text = sprintf("%d",players[player_actual].enemigos[amarilloKillIndex].score);
     ResetColor(255,0,0);
-
-
-//    string toString(int num) {
-//	//Basic function to convert int to string
-//	char buffer[33];
-//	return itoa (num,buffer,10);
-//}
-
-    string num_toString = toString(players[player_actual].enemigos[amarilloKillIndex].score);
-    const char *num_toChar = num_toString.c_str();
-
-    //esat::DrawText(amarilloKillX,amarilloKillY,num_toChar);
-    if(amarilloKilledCount >= fps*2){
-      amarilloKilledCount = 1;
-      amarilloKill = false;
-    }
+     char buffer[33];
+     string num_toString = itoa (players[player_actual].enemigos[amarilloKillIndex].score,buffer,10);
+     const char *num_toChar = num_toString.c_str();
+     esat::DrawText(amarilloKillX,amarilloKillY,num_toChar);
+     if(amarilloKilledCount >= fps*2){
+       amarilloKilledCount = 1;
+       amarilloKill = false;
+     }
   }
 }
 

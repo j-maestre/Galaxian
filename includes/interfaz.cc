@@ -1,14 +1,9 @@
-#include <string>
-using namespace std;
-using std::cout;  //Similar a printf
-using std::endl;
-using std::copy;
-using std::this_thread::sleep_for;     //Bloquea la ejecucion del proceso actual durante al menos el tiempo especificado
-using namespace std::chrono_literals;  //Capacidad para acceder a las clases de la libreria crono
+
 
 void CreateSprites(){
   //Enemigos 24x24
-  spritesheet=esat::SpriteFromFile("./assets/sprites/spritesheet.png");
+  spritesheet = esat::SpriteFromFile("./assets/sprites/spritesheet.png");
+  spritesheet_invertido = esat::SpriteFromFile("./assets/sprites/spritesheet_invertido.png");
   logo = esat::SubSprite(spritesheet,0,843,432,132);
   flecha = esat::SubSprite(spritesheet,360,1106,23,22);
   namcot = esat::SpriteFromFile("./assets/sprites/namcot.png");
@@ -38,6 +33,18 @@ void CreateSprites(){
   animacion_alienVerde[1] = esat::SubSprite(spritesheet,108,564,33,24);
   animacion_alienVerde[2] = esat::SubSprite(spritesheet,60,564,33,24);
   animacion_alienVerde[3] = esat::SubSprite(spritesheet,216,564,33,24);
+  inclinacion_alienVerde[0] = esat::SubSprite(spritesheet,312,523,34,25);
+  inclinacion_alienVerde[1] = esat::SubSprite(spritesheet,261,520,36,31);
+  inclinacion_alienVerde[2] = esat::SubSprite(spritesheet,211,521,36,30);
+  inclinacion_alienVerde[3] = esat::SubSprite(spritesheet,159,517,37,37); 
+  inclinacion_alienVerde[4] = esat::SubSprite(spritesheet,112,517,30,37);
+  inclinacion_alienVerde[5] = esat::SubSprite(spritesheet,61 ,517,33,37);
+  //Animacion parte derecha
+  inclinacion_alienVerde[5] = esat::SubSprite(spritesheet_invertido,68,240,36,31);
+  inclinacion_alienVerde[6] = esat::SubSprite(spritesheet_invertido,119 ,240,36,30);
+  inclinacion_alienVerde[7] = esat::SubSprite(spritesheet_invertido,170,237,37,37);
+  inclinacion_alienVerde[8] = esat::SubSprite(spritesheet_invertido,224,237,30,37);
+  inclinacion_alienVerde[9] = esat::SubSprite(spritesheet_invertido,272,237,33,37 );
   explosion_alien[0] = esat::SubSprite(spritesheet,154,647,48,48);
   explosion_alien[1] = esat::SubSprite(spritesheet,214,653,48,48);
   explosion_alien[2] = esat::SubSprite(spritesheet,262,644,48,48);
@@ -45,11 +52,7 @@ void CreateSprites(){
 
 }
 
-string toString(int num) {
-	//Basic function to convert int to string
-	char buffer[33];
-	return itoa (num,buffer,10);
-}
+
 
 
 void printScore(int x, int y, int num, RGB color){
@@ -383,5 +386,11 @@ void ReleaseSprites(){
   esat::SpriteRelease(playerExplosion[1]);
   esat::SpriteRelease(playerExplosion[2]);
   esat::SpriteRelease(playerExplosion[3]);
+  esat::SpriteRelease(inclinacion_alienVerde[0]);
+  esat::SpriteRelease(inclinacion_alienVerde[1]);
+  esat::SpriteRelease(inclinacion_alienVerde[2]);
+  esat::SpriteRelease(inclinacion_alienVerde[3]);
+  esat::SpriteRelease(inclinacion_alienVerde[4]);
+  esat::SpriteRelease(inclinacion_alienVerde[5]);
   // esat::SpriteRelease(sprite);
 }
