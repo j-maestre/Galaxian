@@ -38,7 +38,7 @@ int indexAtaqueD1 = 30;
 int indexAtaqueD2 = 37;
 int indexAtaqueE1 = 38;
 int indexAtaqueE2 = 43;
-bool fila1 = true, fila2 = true, fila3 = true, fila4 = true, fila5 = true;
+bool fila1 = true, fila2 = true, fila3 = true, fila4 = true, fila5 = true,fila6 = true;
 
 bool players_selected = false;
 bool interfaz = false;
