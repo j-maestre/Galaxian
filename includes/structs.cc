@@ -43,7 +43,7 @@ struct Enemigo{
 	Explosion explosion;						//Explosion del enemigo
 	bool esquina = false;						//Si está en una esquina, podrá atacar, sino no
 	bool descendiendo = false;  				//Si el enemigo está descendiendo en parabola hacia el jugador
-	char direccion_descenso;					//La direccion X en la que desciende R|L
+	char direccion_descenso = 'R';					//La direccion X en la que desciende R|L
 	bool fin_descenso = false;
 	int descensoX = 0;
 	int descensoY = 0;

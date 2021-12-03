@@ -107,88 +107,105 @@ void Disparar(int index){
 }
 
 esat::SpriteHandle AnimacionDescenso(int index){
-  printf("Animacion descenso\n");
   //Calcular aqui lo cerca que está del jugador para disminuir o aumentar la velocidad en la que se mueve
   int index_animacion = 0;
   //Inclinacion parte izquierda
   
   if(players[player_actual].enemigos[index].direccion_descenso == 'L'){
       if(players[player_actual].enemigos[index].descensoX < players[player_actual].x-80 && players[player_actual].enemigos[index].descensoX < players[player_actual].x -100){
-        //Sexto sprite
-        printf("Sexto sprite\n");
-        index_animacion = 5;
-        // velocidad_enemigos_descenso = 1;
-        velocidad_enemigos_descenso_x = 1;
-
-        
+      //Sexto sprite
+    
+      index_animacion = 5;
+      // velocidad_enemigos_descenso = 1;
+      velocidad_enemigos_descenso_x = 1;
+      
       }else if(players[player_actual].enemigos[index].descensoX < players[player_actual].x-60 && players[player_actual].enemigos[index].descensoX < players[player_actual].x -80){
         //Quinto sprite
-        printf("Quinto sprite\n");
+
         index_animacion = 4;
         // velocidad_enemigos_descenso = 2;
         velocidad_enemigos_descenso_x = 2;
       }else if(players[player_actual].enemigos[index].descensoX < players[player_actual].x-40 && players[player_actual].enemigos[index].descensoX < players[player_actual].x -60){
         //Cuarto sprite
-        printf("Cuarto sprite\n");
+
         index_animacion = 3;
         // velocidad_enemigos_descenso = 3;
         velocidad_enemigos_descenso_x = 3;
       }else if(players[player_actual].enemigos[index].descensoX < players[player_actual].x-20 && players[player_actual].enemigos[index].descensoX < players[player_actual].x -40){
         //Tercer sprite
-        printf("Tercer sprite\n");
+     
         index_animacion = 2;
         // velocidad_enemigos_descenso = 4;
         velocidad_enemigos_descenso_x = 4;
       }else if(players[player_actual].enemigos[index].descensoX < players[player_actual].x && players[player_actual].enemigos[index].descensoX < players[player_actual].x -20){
         //Segundo sprite
-        printf("Segundo sprite\n");
+     
         index_animacion = 1;
         // velocidad_enemigos_descenso = 5;
         velocidad_enemigos_descenso_x = 4;
       }else{
         velocidad_enemigos_descenso_x = 4;
       }
-      }
+  }
 
-        if(players[player_actual].enemigos[index].direccion_descenso == 'R'){
+    if(players[player_actual].enemigos[index].direccion_descenso == 'R'){
       //Inclinacion parte derecha
   
       if(players[player_actual].enemigos[index].descensoX > players[player_actual].x+80 && players[player_actual].enemigos[index].descensoX > players[player_actual].x +100){
         //Sexto sprite
-        printf("Sexto sprite\n");
-        index_animacion = 9;
+
+        index_animacion = 10;
         velocidad_enemigos_descenso_x = 1;
 
       }else if(players[player_actual].enemigos[index].descensoX > players[player_actual].x+60 && players[player_actual].enemigos[index].descensoX > players[player_actual].x + 80){
         //Quinto sprite
-        printf("Quinto sprite\n");
-        index_animacion = 8;
+
+        index_animacion = 9;
         // velocidad_enemigos_descenso = 2;
         velocidad_enemigos_descenso_x = 2;
       }else if(players[player_actual].enemigos[index].descensoX > players[player_actual].x+40 && players[player_actual].enemigos[index].descensoX > players[player_actual].x + 60){
         //Cuarto sprite
-        printf("Cuarto sprite\n");
-        index_animacion = 7;
+
+        index_animacion = 8;
         // velocidad_enemigos_descenso = 3;
         velocidad_enemigos_descenso_x = 3;
       }else if(players[player_actual].enemigos[index].descensoX > players[player_actual].x+20 && players[player_actual].enemigos[index].descensoX > players[player_actual].x + 40){
         //Tercer sprite
-        printf("Tercer sprite\n");
-        index_animacion = 6;
+
+        index_animacion = 7;
         // velocidad_enemigos_descenso = 4;
         velocidad_enemigos_descenso_x = 4;
       }else if(players[player_actual].enemigos[index].descensoX > players[player_actual].x && players[player_actual].enemigos[index].descensoX > players[player_actual].x + 20){
         //Segundo sprite
-        printf("Segundo sprite\n");
-        index_animacion = 5;
+ 
+        index_animacion = 6;
         // velocidad_enemigos_descenso = 5;
         velocidad_enemigos_descenso_x = 4;
       }else{
         velocidad_enemigos_descenso_x = 4;
       }
-      }
+    }
+    switch(players[player_actual].enemigos[index].type){
+      case 'G':
+        return inclinacion_alienVerde[index_animacion];
+      break;
+      case 'P':
+        return inclinacion_alienRosa[index_animacion];
+      break;
+      case 'R':
+        return inclinacion_alienRojo[index_animacion];
+      break;
+      case 'Y':
+      return alienAmarillo;
+        // return inclinacion_alienVerde[index_animacion];
+      break;
+      default:
+        printf("---------------ERROR DEFAULT-------------\n");
+        return inclinacion_alienVerde[index_animacion];
+      break;
+    }
 
-      return inclinacion_alienVerde[index_animacion];
+      
 }
 
 

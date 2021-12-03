@@ -24,7 +24,6 @@ int esat::main(int argc, char **argv) {
     	esat::DrawClear(0,0,0);
 			MoveBackground();
 			Score();
-
 			if(!interfaz){
 				interfaz = Interfaz();
 				Credits(&credits);
