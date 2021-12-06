@@ -276,6 +276,7 @@ void Descender(int index, esat::SpriteHandle sprite){
       if(al_sitioY && al_sitioX){
         players[player_actual].enemigos[index].descendiendo = false;
         players[player_actual].enemigos[index].fin_descenso = false;
+        players[player_actual].enemigos[index].finAscenso = false;
         players[player_actual].enemigos[index].descensoX = -20;
         players[player_actual].enemigos[index].descensoY = -20;
       }
@@ -285,6 +286,47 @@ void Descender(int index, esat::SpriteHandle sprite){
   
 };
 
+void Ascender(int index){
+  //140 pixeles de subida, 20 pixeles por animacion * 7 animaciones
+  int indexSprite = 0;
+  esat::SpriteHandle sprite;
+  if(players[player_actual].enemigos[index].ascensoY > players[player_actual].enemigos[index].y-140 && players[player_actual].enemigos[index].ascendiendo){
+    players[player_actual].enemigos[index].ascensoY-=4;
+
+
+    if(players[player_actual].enemigos[index].ascensoY <players[player_actual].enemigos[index].y-90){
+      if(players[player_actual].enemigos[index].direccion_descenso == 'L'){
+        players[player_actual].enemigos[index].ascensoX+=3;
+      }else{
+        players[player_actual].enemigos[index].ascensoX-=3;
+      }
+    }
+
+    if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-120){
+      //Mostrar una direccion de ascenso dependiendo de la direccion en la que sale
+      players[player_actual].enemigos[index].direccion_descenso == 'L'?indexSprite = 6:true;
+      
+    }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-100){
+      indexSprite = 5;
+    }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-80){
+      indexSprite = 4;
+    }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-60){
+      indexSprite = 3;
+    }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-40){
+      indexSprite = 2;
+    }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-20){
+      indexSprite = 1;
+    }
+
+    esat::DrawSprite(ascenso_alienVerde[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
+  }else{
+    printf("FIN ASCENSO\n");
+    players[player_actual].enemigos[index].finAscenso = true;
+    players[player_actual].enemigos[index].ascendiendo = false;
+    players[player_actual].enemigos[index].descensoX = players[player_actual].enemigos[index].ascensoX;
+    players[player_actual].enemigos[index].descensoY = players[player_actual].enemigos[index].ascensoY;
+  }
+}
 void PrintEnemigos(){
 
   fps_count<1000?++fps_count:fps_count=0;
@@ -348,7 +390,18 @@ void PrintEnemigos(){
 
     //Si está descendiendo, llamamos a la funcion de descenso y le pasamos el index de quien está descendiendo y su sprite
     if(players[player_actual].enemigos[i].descendiendo){
-      Descender(i, sprite);
+      //Llamar primero a ascender y luego a Descender
+      if(!players[player_actual].enemigos[i].ascendiendo){
+        players[player_actual].enemigos[i].ascendiendo = true;
+        players[player_actual].enemigos[i].ascensoX = players[player_actual].enemigos[i].x;
+        players[player_actual].enemigos[i].ascensoY = players[player_actual].enemigos[i].y;
+      }else if(!players[player_actual].enemigos[i].finAscenso){
+        Ascender(i);
+      }
+      //Si he acabado de ascender, toca descender
+      if(players[player_actual].enemigos[i].finAscenso)Descender(i, sprite);
+
+      //Si aun no he acabado de descender, puedo disparar
       if(!players[player_actual].enemigos[i].fin_descenso)Disparar(i);
     }
   }

@@ -76,6 +76,7 @@ esat::SpriteHandle inclinacion_alienRosa[11];
 esat::SpriteHandle alienVerde;
 esat::SpriteHandle animacion_alienVerde [4];
 esat::SpriteHandle inclinacion_alienVerde[11];
+esat::SpriteHandle ascenso_alienVerde[7];
 esat::SpriteHandle explosion_alien[4];
 esat::SpriteHandle disparoPlayer;
 esat::SpriteHandle disparoEnemigo;

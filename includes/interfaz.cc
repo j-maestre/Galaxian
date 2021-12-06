@@ -57,6 +57,14 @@ void CreateSprites(){
   animacion_alienVerde[2] = esat::SubSprite(spritesheet,60,564,33,24);
   animacion_alienVerde[3] = esat::SubSprite(spritesheet,216,564,33,24);
 
+  ascenso_alienVerde[0] = esat::SubSprite(spritesheet,10,473,33,24);
+  ascenso_alienVerde[1] = esat::SubSprite(spritesheet,57,469,37,31);
+  ascenso_alienVerde[2] = esat::SubSprite(spritesheet,108,469,37,31);
+  ascenso_alienVerde[3] = esat::SubSprite(spritesheet,159,466,37,37);
+  ascenso_alienVerde[4] = esat::SubSprite(spritesheet,213,466,31,37);
+  ascenso_alienVerde[5] = esat::SubSprite(spritesheet,264,466,34,37);
+  ascenso_alienVerde[6] = esat::SubSprite(spritesheet,318,469,25,34);
+
   inclinacion_alienVerde[0] = esat::SubSprite(spritesheet,312,523,34,25);
   inclinacion_alienVerde[1] = esat::SubSprite(spritesheet,261,520,36,31);
   inclinacion_alienVerde[2] = esat::SubSprite(spritesheet,211,521,36,30);
@@ -223,9 +231,9 @@ bool Players(){
 
 bool Interfaz(){
 
-esat::DrawSetStrokeColor(255,0,0);
-esat::DrawSetFillColor(255,0,0);
-esat::DrawSetTextSize(25);
+  esat::DrawSetStrokeColor(255,0,0);
+  esat::DrawSetFillColor(255,0,0);
+  esat::DrawSetTextSize(25);
 
   if(!players_selected){
     InsertCoin(&credits);

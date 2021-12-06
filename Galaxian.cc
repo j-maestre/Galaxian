@@ -29,6 +29,7 @@ int esat::main(int argc, char **argv) {
 				Credits(&credits);
 			}else if(!gameOver){
 				PrintEnemigos();
+				printf("%d",fps_count_explosion_player);
 				if(!start){
 					start = Start();
 					//debugEnemigos();
