@@ -1,7 +1,5 @@
 void CreatePlayer(){
-    printf("Create player\n");
     for (int i = 0; i < N_players; i++){
-        printf("Create: %d \n",i);
         Disparo disparo;
         Explosion explosion;
         Jugador player = {350,600};
@@ -39,8 +37,6 @@ void PrintPlayer(){
         //Disparo del jugador
         if(players[player_actual].disparo.disparando){
             //Mostrar la bala
-            //printf("Mostrando bala\n");
-            //printf("Bala Y: %d del player:%d\n",players[player_actual].disparo.y, player_actual);
             esat::DrawSprite(disparoPlayer,players[player_actual].disparo.x+20,players[player_actual].disparo.y-=velocidad_disparo_player);
             if(players[player_actual].disparo.y<=0)players[player_actual].disparo.disparando = false;
         }
@@ -54,9 +50,7 @@ void PrintPlayer(){
         }
 
         if(esat::IsSpecialKeyPressed(esat::kSpecialKey_Space) && !players[player_actual].disparo.disparando){
-            printf("Press space\n");
             players[player_actual].disparo.disparando = true;
-            printf("He disparado en x:%d y:%d \n",players[player_actual].x,players[player_actual].y);
             players[player_actual].disparo.x = players[player_actual].x;
             players[player_actual].disparo.y = players[player_actual].y;
 
@@ -81,6 +75,8 @@ void CheckGameOver(){
             credits--;
         }else if(N_players == 2 && players[0].vidas <= 0 && players[1].vidas <= 0){
             //Fin del juego
+            gameOver = true;
+            credits--;
         }
     }
 }

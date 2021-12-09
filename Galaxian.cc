@@ -37,26 +37,14 @@ int esat::main(int argc, char **argv) {
 				}else{
 					//LLamar al jugador
 					PrintPlayer();
-
 					Vidas();
 					Levels();
-					//Checking index ataques
-					printf("Index ataque A1:%d\n",indexAtaqueA1);
-					printf("Index ataque A2:%d\n",indexAtaqueA2);
-					printf("Index ataque B1:%d\n",indexAtaqueB1);
-					printf("Index ataque B2:%d\n",indexAtaqueB2);
-					printf("Index ataque C1:%d\n",indexAtaqueC1);
-					printf("Index ataque C2:%d\n",indexAtaqueC2);
-					printf("Index ataque D1:%d\n",indexAtaqueD1);
-					printf("Index ataque D2:%d\n",indexAtaqueD2);
-					printf("Index ataque E1:%d\n",indexAtaqueE1);
-					printf("Index ataque E2:%d\n",indexAtaqueE2);
 					//Comprobar que toda la fila siga viva
 					ComprobarFila();
 					//Solo pueden atacar los que están en las esquinas
 					PuedeAtacar();
 					CheckColisiones();
-					CalcularDescenso();  //BUUUUUUUUUUUUUUUGGGGGGGGGGGGGGGGGG
+					CalcularDescenso();
 					//DebugPlayer();
 					AmarilloKilled();
 					CheckGameOver();
@@ -73,6 +61,18 @@ int esat::main(int argc, char **argv) {
 							//Intercambio de turno si tenemos 2 jugadores
 							player_actual==0?player_actual = 1:player_actual = 0;
 							fps_count_start = 1;
+							
+							//Reiniciamos index de ataques
+							indexAtaqueA1 = 0;
+							indexAtaqueA2 = 9;
+							indexAtaqueB1 = 10;
+							indexAtaqueB2 = 19;
+							indexAtaqueC1 = 20;
+							indexAtaqueC2 = 29;
+							indexAtaqueD1 = 30;
+							indexAtaqueD2 = 37;
+							indexAtaqueE1 = 38;
+							indexAtaqueE2 = 43;
 							
 							//Mostramos la animacion
 							start = false;

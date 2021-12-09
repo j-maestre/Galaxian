@@ -169,8 +169,7 @@ void Score(){
 
 void InsertCoin(int *credits){
   esat::DrawSetTextSize(15);
-  esat::DrawSetStrokeColor(255,178,0);
-  esat::DrawSetFillColor(255,178,0);
+  ResetColor(255,178,0);
   esat::DrawText(ANCHO/2,(ALTO*3)/1.3 +70,"PUSH SPACE TO INSERT CREDITS");
 
   //Logos
@@ -389,6 +388,13 @@ void GameOver(){
     Credits(&credits);
     ResetColor(255,0,0);
     esat::DrawText((ANCHO*3)/2.5,(ALTO*3)/1.5,"GAME OVER");
+    ResetColor(255,178,0);
+    esat::DrawText((ANCHO*3)/2,(ALTO*3)/2,"PUSH ENTER TO NEW GAME");
+    if(esat::IsSpecialKeyDown(esat::kSpecialKey_Enter)){
+        interfaz = false;
+        //TODO Resetear todas las variables
+    }
+    ResetColor();
 }
 
 void ReleaseSprites(){

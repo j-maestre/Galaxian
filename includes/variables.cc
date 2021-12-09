@@ -5,7 +5,7 @@ const int N_NIEVE = 100,VELOCIDAD_FONDO=2;
 const char FONT_PATH[26] = {"assets/fonts/prstart.ttf\0"};
 const int N_ENEMIGOS = 46;
 
-bool debug = true;
+bool debug = false;
 
 unsigned char fps=60;
 double current_time,last_time;

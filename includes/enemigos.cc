@@ -200,7 +200,6 @@ esat::SpriteHandle AnimacionDescenso(int index){
         // return inclinacion_alienVerde[index_animacion];
       break;
       default:
-        printf("---------------ERROR DEFAULT-------------\n");
         return inclinacion_alienVerde[index_animacion];
       break;
     }
@@ -210,8 +209,7 @@ esat::SpriteHandle AnimacionDescenso(int index){
 
 
 void Descender(int index, esat::SpriteHandle sprite){
- // printf("----Descendiendo-----\n");
- // printf("Posicion de partida del %d-> x:%d y:%d\n",index,players[player_actual].enemigos[index].descensoX, players[player_actual].enemigos[index].descensoY);
+
   if(players[player_actual].enemigos[index].vivo && !players[player_actual].enemigos[index].fin_descenso){
     //velocidad_enemigos_descenso--;
     players[player_actual].enemigos[index].descensoY+=velocidad_enemigos_descenso;
@@ -238,7 +236,6 @@ void Descender(int index, esat::SpriteHandle sprite){
 
     //Cuando llega a abajo del todo, lo ponemos arriba y marcamos el fin de su descenso
     if(players[player_actual].enemigos[index].descensoY>=ALTO*3 && players[player_actual].enemigos[index].fin_descenso == false){
-      printf("HA llegado abajo \n");
       players[player_actual].enemigos[index].fin_descenso = true;
       players[player_actual].enemigos[index].descensoY = 50;
     }
@@ -318,7 +315,6 @@ void Ascender(int index){
      if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-120){
 
       //Mostrar una direccion de ascenso dependiendo de la direccion en la que sale
-      printf("ASCENSO DERECHA\n");
       direccion == 'L'?indexSprite = 6:indexSprite = 12;
       players[player_actual].enemigos[index].ascensoY++;
 
@@ -353,7 +349,6 @@ void Ascender(int index){
     }
 
   }else{
-    printf("FIN ASCENSO\n");
     players[player_actual].enemigos[index].finAscenso = true;
     players[player_actual].enemigos[index].ascendiendo = false;
     players[player_actual].enemigos[index].descensoX = players[player_actual].enemigos[index].ascensoX;
@@ -361,13 +356,7 @@ void Ascender(int index){
   }
 }
 void PrintEnemigos(){
-
   fps_count<1000?++fps_count:fps_count=0;
-  // printf("%d\n",fps_count);
-  //if(fps_count%15 == 0){
-  //  animacion_selector>=3?animacion_selector=0:++animacion_selector;
-  //};
-
   for (int i = 0; i <=N_ENEMIGOS -1; i++) {
 
     //Cada 15 frames cambiamos el sprite del alien para la animacion
@@ -440,21 +429,18 @@ void PrintEnemigos(){
 void CalcularDescenso(){
   bool fila_aceptada = true;
   cont_frecuencia>=4000?cont_frecuencia=0:cont_frecuencia++;
-  printf("ContFrecuencia: %d\n",cont_frecuencia);
   do{
     fila_aceptada = true;
     
     if(cont_frecuencia%(fps*frecuencia) == 0){
       //Sorteamos la frecuencia en la que sale
       frecuencia = 1 + rand()%3;
-      printf("Frecuencia %d\n",frecuencia);
       int random = rand()%251;
       //DEBUG
       // random = 249;
-      printf("Sacamos num random: %d\n", random);
+
       if(random<=frecuencia_verde){
         //Baja un verde
-        printf("VERDE \n");
         int index1, index2;
         //Decidir que fila sale
         //decidir si sale por la izquierda o por la derecha
@@ -477,7 +463,6 @@ void CalcularDescenso(){
         }
         if(rand()%2==0){
           //Sale por la izquierda
-          printf("Sale por la izquierda\n");
           if(!players[player_actual].enemigos[index1].descendiendo){
             //Si el de la esquina no está descendiendo ya, que descienda y que vaya hacia la derecha
             players[player_actual].enemigos[index1].descendiendo = true;
@@ -499,7 +484,6 @@ void CalcularDescenso(){
           }
         }else{
           //Sale por la derecha
-          printf("Sale por la derecha\n");
           if(!players[player_actual].enemigos[index2].descendiendo){
             //Si el de la esquina no está descendiendo ya, que descienda
             players[player_actual].enemigos[index2].descendiendo = true;
@@ -520,13 +504,10 @@ void CalcularDescenso(){
         }
       }else if(random>frecuencia_verde && random<=frecuencia_rosa){
         //Baja un rosa
-        printf("ROSA \n");
         //decidir si sale por la izquierda o por la derecha
         if(!fila4)fila_aceptada = false;
         if(rand()%2==0){
           //Sale por la izquierda
-          printf("Sale por la izquierda\n");
-          printf("Indes Atauqe D1: %d\n",indexAtaqueD1);
           if(!players[player_actual].enemigos[indexAtaqueD1].descendiendo){
             //Si el de la esquina no está descendiendo ya, que descienda y que vaya hacia la derecha
             players[player_actual].enemigos[indexAtaqueD1].descendiendo = true;
@@ -548,7 +529,6 @@ void CalcularDescenso(){
           }
         }else{
           //Sale por la derecha
-          printf("Sale por la derecha\n");
           if(!players[player_actual].enemigos[indexAtaqueD2].descendiendo){
             //Si el de la esquina no está descendiendo ya, que descienda
             players[player_actual].enemigos[indexAtaqueD2].descendiendo = true;
@@ -569,17 +549,14 @@ void CalcularDescenso(){
         }
       }else if(random>frecuencia_rosa && random<=frecuencia_rojo){
         //baja un rojo
-        printf("ROJO \n");
         if(!fila5)fila_aceptada = false;
         
       }else if(random>frecuencia_rojo && random<=frecuencia_amarillo){
         //Baja un amarillo con rojos o solo si no quedan
-        printf("AMARILLO \n");
         if(!fila6)fila_aceptada = false;
 
         if(rand()%2==0){
           //Sale el de la izquierda si no está ya descendiendo y está vivo
-          printf("Izquierda \n");
           if(!players[player_actual].enemigos[44].descendiendo && players[player_actual].enemigos[44].vivo){
             players[player_actual].enemigos[44].descendiendo = true;
             players[player_actual].enemigos[44].direccion_descenso = 'R';
@@ -609,11 +586,9 @@ void CalcularDescenso(){
               players[player_actual].enemigos[40].descensoX = players[player_actual].enemigos[40].x;
               players[player_actual].enemigos[40].descensoY = players[player_actual].enemigos[40].y;
             }
-            printf("Empieza a descender desde x:%d y:%d\n",players[player_actual].enemigos[45].descensoX,players[player_actual].enemigos[45].descensoY);
           }
         }else{
           //Sale el de la derecha si no está ya descendiendo y está vivo
-          printf("Derecha \n");
           if(!players[player_actual].enemigos[45].descendiendo && players[player_actual].enemigos[45].vivo){
             players[player_actual].enemigos[45].descendiendo = true;
             players[player_actual].enemigos[45].direccion_descenso = 'L';
@@ -645,7 +620,6 @@ void CalcularDescenso(){
               players[player_actual].enemigos[43].descensoY = players[player_actual].enemigos[43].y;
             }
             
-            printf("Empieza a descender desde x:%d y:%d\n",players[player_actual].enemigos[45].descensoX,players[player_actual].enemigos[45].descensoY);
           }
         }
 
@@ -693,7 +667,7 @@ void ComprobarFila(){
 
 }
 
-void PuedeAtacar(){ //Posible bug aqui
+void PuedeAtacar(){
 
   //Si hay algun enemigo vivo en esta fila, comprobamos las esquinas
   if(fila1){
@@ -852,13 +826,11 @@ void PuedeAtacar(){ //Posible bug aqui
 void AmarilloKilled(){
   if(amarilloKill){
     amarilloKilledCount++;
-    printf("Han matado al chino cudeiro!\n");
-    //string text = sprintf("%d",players[player_actual].enemigos[amarilloKillIndex].score);
+    char text[5];
+    sprintf(text,"%d",players[player_actual].enemigos[amarilloKillIndex].score);
     ResetColor(255,0,0);
-     char buffer[33];
-     string num_toString = itoa (players[player_actual].enemigos[amarilloKillIndex].score,buffer,10);
-     const char *num_toChar = num_toString.c_str();
-     esat::DrawText(amarilloKillX,amarilloKillY,num_toChar);
+    esat::DrawText(amarilloKillX,amarilloKillY,text);
+
      if(amarilloKilledCount >= fps*2){
        amarilloKilledCount = 1;
        amarilloKill = false;
