@@ -24,8 +24,14 @@ void ColisionDispEnemigos(){
           //Lo marcamos como explotando y establecemos la posicion de la explosion
           players[player_actual].enemigos[i].explosion.explotando = true;
           if(players[player_actual].enemigos[i].descendiendo){
-            players[player_actual].enemigos[i].explosion.x = players[player_actual].enemigos[i].descensoX+12;
-            players[player_actual].enemigos[i].explosion.y = players[player_actual].enemigos[i].descensoY+12;
+            if(!players[player_actual].enemigos[i].finAscenso){
+              players[player_actual].enemigos[i].explosion.x = players[player_actual].enemigos[i].ascensoX;  
+              players[player_actual].enemigos[i].explosion.y = players[player_actual].enemigos[i].ascensoY;
+              players[player_actual].enemigos[i].finAscenso = false;
+            }else{
+              players[player_actual].enemigos[i].explosion.y = players[player_actual].enemigos[i].descensoY+12;
+              players[player_actual].enemigos[i].explosion.x = players[player_actual].enemigos[i].descensoX+12;
+            }
           }else{
             players[player_actual].enemigos[i].explosion.x = players[player_actual].enemigos[i].x+12;
             players[player_actual].enemigos[i].explosion.y = players[player_actual].enemigos[i].y+12;
@@ -37,9 +43,11 @@ void ColisionDispEnemigos(){
           //Reiniciamos la posicion de la bala
            players[player_actual].disparo.y=-50;
            players[player_actual].disparo.x=-50;
+           players[player_actual].enemigos[i].disparo.x = -100;
+           players[player_actual].enemigos[i].disparo.y = -100;
 
           //Sumamos el score al jugador
-          player_actual==0?score1+=players[player_actual].enemigos[i].score: score2+=players[player_actual].enemigos[i].score;
+          player_actual==0?score1+=players[player_actual].enemigos[i].score:score2+=players[player_actual].enemigos[i].score;
          
 
         }//End colision

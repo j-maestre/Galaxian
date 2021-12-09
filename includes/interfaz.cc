@@ -4,6 +4,7 @@ void CreateSprites(){
   //Enemigos 24x24
   spritesheet = esat::SpriteFromFile("./assets/sprites/spritesheet.png");
   spritesheet_invertido = esat::SpriteFromFile("./assets/sprites/spritesheet_invertido.png");
+  ascenso_invertido = esat::SpriteFromFile("./assets/sprites/ascenso_invertido.png");
   logo = esat::SubSprite(spritesheet,0,843,432,132);
   flecha = esat::SubSprite(spritesheet,360,1106,23,22);
   namcot = esat::SpriteFromFile("./assets/sprites/namcot.png");
@@ -64,6 +65,13 @@ void CreateSprites(){
   ascenso_alienVerde[4] = esat::SubSprite(spritesheet,213,466,31,37);
   ascenso_alienVerde[5] = esat::SubSprite(spritesheet,264,466,34,37);
   ascenso_alienVerde[6] = esat::SubSprite(spritesheet,318,469,25,34);
+  //ascenso hacia izquierda
+  ascenso_alienVerde[7] = esat::SubSprite(ascenso_invertido,263,235,37,31);
+  ascenso_alienVerde[8] = esat::SubSprite(ascenso_invertido,212,235,37,31);
+  ascenso_alienVerde[9] = esat::SubSprite(ascenso_invertido,161,232,37,37);
+  ascenso_alienVerde[10] = esat::SubSprite(ascenso_invertido,113,232,31,37);
+  ascenso_alienVerde[11] = esat::SubSprite(ascenso_invertido,59,232,34,37);
+  ascenso_alienVerde[12] = esat::SubSprite(ascenso_invertido,14,235,25,34);
 
   inclinacion_alienVerde[0] = esat::SubSprite(spritesheet,312,523,34,25);
   inclinacion_alienVerde[1] = esat::SubSprite(spritesheet,261,520,36,31);
@@ -450,5 +458,19 @@ void ReleaseSprites(){
   esat::SpriteRelease(inclinacion_alienRojo[8]);
   esat::SpriteRelease(inclinacion_alienRojo[9]);
   esat::SpriteRelease(inclinacion_alienRojo[10]);
+  esat::SpriteRelease(ascenso_alienVerde[0]);
+  esat::SpriteRelease(ascenso_alienVerde[1]);
+  esat::SpriteRelease(ascenso_alienVerde[2]);
+  esat::SpriteRelease(ascenso_alienVerde[3]);
+  esat::SpriteRelease(ascenso_alienVerde[4]);
+  esat::SpriteRelease(ascenso_alienVerde[5]);
+  esat::SpriteRelease(ascenso_alienVerde[6]);
+  esat::SpriteRelease(ascenso_alienVerde[7]);
+  esat::SpriteRelease(ascenso_alienVerde[8]);
+  esat::SpriteRelease(ascenso_alienVerde[9]);
+  esat::SpriteRelease(ascenso_alienVerde[10]);
+  esat::SpriteRelease(ascenso_alienVerde[12]);
+
+
   // esat::SpriteRelease(sprite);
 }

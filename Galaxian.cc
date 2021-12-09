@@ -14,6 +14,8 @@ int esat::main(int argc, char **argv) {
 	//CreateEnemigos();
 
 	//End creating items
+	
+	
 
 	esat::DrawSetTextFont(FONT_PATH);
 
@@ -26,24 +28,35 @@ int esat::main(int argc, char **argv) {
 			Score();
 			if(!interfaz){
 				interfaz = Interfaz();
-				Credits(&credits);
+				//Credits(&credits);
 			}else if(!gameOver){
 				PrintEnemigos();
-				printf("%d",fps_count_explosion_player);
 				if(!start){
 					start = Start();
 					//debugEnemigos();
 				}else{
 					//LLamar al jugador
 					PrintPlayer();
+
 					Vidas();
 					Levels();
+					//Checking index ataques
+					printf("Index ataque A1:%d\n",indexAtaqueA1);
+					printf("Index ataque A2:%d\n",indexAtaqueA2);
+					printf("Index ataque B1:%d\n",indexAtaqueB1);
+					printf("Index ataque B2:%d\n",indexAtaqueB2);
+					printf("Index ataque C1:%d\n",indexAtaqueC1);
+					printf("Index ataque C2:%d\n",indexAtaqueC2);
+					printf("Index ataque D1:%d\n",indexAtaqueD1);
+					printf("Index ataque D2:%d\n",indexAtaqueD2);
+					printf("Index ataque E1:%d\n",indexAtaqueE1);
+					printf("Index ataque E2:%d\n",indexAtaqueE2);
 					//Comprobar que toda la fila siga viva
 					ComprobarFila();
 					//Solo pueden atacar los que están en las esquinas
 					PuedeAtacar();
 					CheckColisiones();
-					CalcularDescenso();
+					CalcularDescenso();  //BUUUUUUUUUUUUUUUGGGGGGGGGGGGGGGGGG
 					//DebugPlayer();
 					AmarilloKilled();
 					CheckGameOver();

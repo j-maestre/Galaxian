@@ -58,6 +58,7 @@ int score_yellow [4]={150,800,300,200}, cont_score_yellow = 0;
 
 esat::SpriteHandle spritesheet;
 esat::SpriteHandle spritesheet_invertido;
+esat::SpriteHandle ascenso_invertido;
 esat::SpriteHandle logo;
 esat::SpriteHandle flecha;
 esat::SpriteHandle namcot;
@@ -76,7 +77,7 @@ esat::SpriteHandle inclinacion_alienRosa[11];
 esat::SpriteHandle alienVerde;
 esat::SpriteHandle animacion_alienVerde [4];
 esat::SpriteHandle inclinacion_alienVerde[11];
-esat::SpriteHandle ascenso_alienVerde[7];
+esat::SpriteHandle ascenso_alienVerde[13];
 esat::SpriteHandle explosion_alien[4];
 esat::SpriteHandle disparoPlayer;
 esat::SpriteHandle disparoEnemigo;

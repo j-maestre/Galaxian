@@ -39,8 +39,8 @@ void PrintPlayer(){
         //Disparo del jugador
         if(players[player_actual].disparo.disparando){
             //Mostrar la bala
-            printf("Mostrando bala\n");
-            printf("Bala Y: %d del player:%d\n",players[player_actual].disparo.y, player_actual);
+            //printf("Mostrando bala\n");
+            //printf("Bala Y: %d del player:%d\n",players[player_actual].disparo.y, player_actual);
             esat::DrawSprite(disparoPlayer,players[player_actual].disparo.x+20,players[player_actual].disparo.y-=velocidad_disparo_player);
             if(players[player_actual].disparo.y<=0)players[player_actual].disparo.disparando = false;
         }
@@ -75,8 +75,6 @@ void DebugPlayer(){
 
 void CheckGameOver(){
     if(!debug){
-
-        
         if(N_players == 1 && players[0].vidas <=0){
             //Fin del juego
             gameOver = true;

@@ -75,19 +75,19 @@ void CreateEnemigos(){
   //players[player_actual].enemigos = enemigos;
 }
 
-void ExplosionEnemigos(int posicion){
+void ExplosionEnemigos(int index){
   fps_count_explosion++;
 
   //Cada 0'25 segundos muestro una animacion de la explosion
   if(fps_count_explosion>fps*(explosion_selector*0.1))explosion_selector++;
   if(explosion_selector<4){
-    esat::DrawSprite(explosion_alien[explosion_selector],players[player_actual].enemigos[posicion].explosion.x, players[player_actual].enemigos[posicion].explosion.y);
+    esat::DrawSprite(explosion_alien[explosion_selector],players[player_actual].enemigos[index].explosion.x, players[player_actual].enemigos[index].explosion.y);
 
     //Cuando ya he mostrado todas las explosiones, dejo de explotar y reinicio las variables
   }else if(explosion_selector>=4){
     explosion_selector=0;
     fps_count_explosion = 0;
-    players[player_actual].enemigos[posicion].explosion.explotando = false;
+    players[player_actual].enemigos[index].explosion.explotando = false;
   }
   // esat::DrawSprite();
 }
@@ -290,11 +290,18 @@ void Ascender(int index){
   //140 pixeles de subida, 20 pixeles por animacion * 7 animaciones
   int indexSprite = 0;
   esat::SpriteHandle sprite;
-  if(players[player_actual].enemigos[index].ascensoY > players[player_actual].enemigos[index].y-140 && players[player_actual].enemigos[index].ascendiendo){
-    players[player_actual].enemigos[index].ascensoY-=4;
+  char direccion = players[player_actual].enemigos[index].direccion_descenso;
 
+  //Movimiento de ascenso en Y
+  if(players[player_actual].enemigos[index].ascensoY > players[player_actual].enemigos[index].y-120 && players[player_actual].enemigos[index].ascendiendo){
+    if(players[player_actual].enemigos[index].ascensoY > players[player_actual].enemigos[index].y-100){
+      players[player_actual].enemigos[index].ascensoY-=2;
+    }else{
+      players[player_actual].enemigos[index].ascensoY--;
+    }
 
-    if(players[player_actual].enemigos[index].ascensoY <players[player_actual].enemigos[index].y-90){
+  //Movimiento de ascenso en X para la parabola cuando he ascendido 100 pixeles
+    if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-100){
       if(players[player_actual].enemigos[index].direccion_descenso == 'L'){
         players[player_actual].enemigos[index].ascensoX+=3;
       }else{
@@ -302,23 +309,49 @@ void Ascender(int index){
       }
     }
 
-    if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-120){
-      //Mostrar una direccion de ascenso dependiendo de la direccion en la que sale
-      players[player_actual].enemigos[index].direccion_descenso == 'L'?indexSprite = 6:true;
-      
-    }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-100){
-      indexSprite = 5;
-    }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-80){
-      indexSprite = 4;
-    }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-60){
-      indexSprite = 3;
-    }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-40){
-      indexSprite = 2;
-    }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-20){
-      indexSprite = 1;
+    //Cuando me he desplazado 30 pixeles a la derecha y estoy arriba del todo, empiezo a descenser mientras me sigo moviendo 10 pixeles a la derecha
+    if(players[player_actual].enemigos[index].ascensoX > players[player_actual].enemigos[index].x+30 && players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-140 ){
+      players[player_actual].enemigos[index].ascensoY+=2;
     }
 
-    esat::DrawSprite(ascenso_alienVerde[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
+    //Su misma posicion +120 pixeles de parabola
+     if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-120){
+
+      //Mostrar una direccion de ascenso dependiendo de la direccion en la que sale
+      printf("ASCENSO DERECHA\n");
+      direccion == 'L'?indexSprite = 6:indexSprite = 12;
+      players[player_actual].enemigos[index].ascensoY++;
+
+      //Asignamos un index del array de animaciones dependiendo de la direccion en la que vaya
+      
+     }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-116){
+        direccion == 'L'?indexSprite = 5:indexSprite = 11;
+      }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-112){
+        direccion == 'L'?indexSprite = 4:indexSprite = 10;
+      }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-108){
+        direccion == 'L'?indexSprite = 3:indexSprite = 9;
+      }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-104){
+        direccion == 'L'?indexSprite = 2:indexSprite = 8;
+      }else if(players[player_actual].enemigos[index].ascensoY < players[player_actual].enemigos[index].y-100){
+        direccion == 'L'?indexSprite = 1:indexSprite = 7;
+      }
+
+    switch(players[player_actual].enemigos[index].type){
+      case 'G':
+        esat::DrawSprite(ascenso_alienVerde[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
+      break;
+      case 'P':
+        esat::DrawSprite(ascenso_alienVerde[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
+       //esat::DrawSprite(ascenso_alienRosa[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
+      break;
+      case 'R':
+        esat::DrawSprite(ascenso_alienVerde[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
+      break;
+      case 'Y':
+        esat::DrawSprite(ascenso_alienVerde[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
+      break;
+    }
+
   }else{
     printf("FIN ASCENSO\n");
     players[player_actual].enemigos[index].finAscenso = true;
@@ -379,10 +412,6 @@ void PrintEnemigos(){
     }else if(direccion_enemigos == 'L'){
       players[player_actual].enemigos[i].x-=velocidad_enemigos;
       if(players[player_actual].enemigos[i].vivo && !players[player_actual].enemigos[i].descendiendo)esat::DrawSprite(sprite,players[player_actual].enemigos[i].x,players[player_actual].enemigos[i].y);
-
-      //Movemos el enemigo seleccionado hacia abajo
-    }else if(players[player_actual].enemigos[i].vivo && players[player_actual].enemigos[i].descendiendo){
-      //
     }
 
     //Si está explotando, llamamos a la funcion de explotar y le pasamos el indice del enemigo
@@ -395,7 +424,7 @@ void PrintEnemigos(){
         players[player_actual].enemigos[i].ascendiendo = true;
         players[player_actual].enemigos[i].ascensoX = players[player_actual].enemigos[i].x;
         players[player_actual].enemigos[i].ascensoY = players[player_actual].enemigos[i].y;
-      }else if(!players[player_actual].enemigos[i].finAscenso){
+      }else if(!players[player_actual].enemigos[i].finAscenso && players[player_actual].vivo){
         Ascender(i);
       }
       //Si he acabado de ascender, toca descender
@@ -410,7 +439,8 @@ void PrintEnemigos(){
 
 void CalcularDescenso(){
   bool fila_aceptada = true;
-  cont_frecuencia++;
+  cont_frecuencia>=4000?cont_frecuencia=0:cont_frecuencia++;
+  printf("ContFrecuencia: %d\n",cont_frecuencia);
   do{
     fila_aceptada = true;
     
@@ -621,7 +651,11 @@ void CalcularDescenso(){
 
       }
     }
-    if(!fila_aceptada)printf("---------FILA RECHAZADA---------\n");
+
+    //Creo que el bug sale cuando rechazamos la fila por segunda vez
+    if (!fila_aceptada) {
+        printf("---------FILA RECHAZADA---------\n");
+    }
   }while(!fila_aceptada);
 
 }
@@ -645,11 +679,21 @@ void ComprobarFila(){
     fila4 = true;
     fila5 = true;
     fila6 = true;
+    indexAtaqueA1 = 0;
+    indexAtaqueA2 = 9;
+    indexAtaqueB1 = 10;
+    indexAtaqueB2 = 19;
+    indexAtaqueC1 = 20;
+    indexAtaqueC2 = 29;
+    indexAtaqueD1 = 30;
+    indexAtaqueD2 = 37;
+    indexAtaqueE1 = 38;
+    indexAtaqueE2 = 43;
   }
 
 }
 
-void PuedeAtacar(){
+void PuedeAtacar(){ //Posible bug aqui
 
   //Si hay algun enemigo vivo en esta fila, comprobamos las esquinas
   if(fila1){
@@ -795,8 +839,8 @@ void PuedeAtacar(){
         ++indexAtaqueE2;
       }else{
 
-        ataqueConfirmadoE2 = true;
         players[player_actual].enemigos[indexAtaqueE2].esquina = true;
+        ataqueConfirmadoE2 = true;
       }
 
     }while(!ataqueConfirmadoE2);
