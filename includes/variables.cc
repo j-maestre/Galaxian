@@ -5,7 +5,7 @@ const int N_NIEVE = 100,VELOCIDAD_FONDO=2;
 const char FONT_PATH[26] = {"assets/fonts/prstart.ttf\0"};
 const int N_ENEMIGOS = 46;
 
-bool debug = false;
+bool debug = true;
 
 unsigned char fps=60;
 double current_time,last_time;
@@ -68,12 +68,15 @@ esat::SpriteHandle player;
 esat::SpriteHandle playerDisparando;
 esat::SpriteHandle playerExplosion [4];
 esat::SpriteHandle alienAmarillo;
+esat::SpriteHandle ascenso_alienAmarillo[13];
 esat::SpriteHandle alienRojo;
 esat::SpriteHandle animacion_alienRojo [4];
 esat::SpriteHandle inclinacion_alienRojo[11];
+esat::SpriteHandle ascenso_alienRojo[13];
 esat::SpriteHandle alienRosa;
 esat::SpriteHandle animacion_alienRosa [4];
 esat::SpriteHandle inclinacion_alienRosa[11];
+esat::SpriteHandle ascenso_alienRosa[13];
 esat::SpriteHandle alienVerde;
 esat::SpriteHandle animacion_alienVerde [4];
 esat::SpriteHandle inclinacion_alienVerde[11];

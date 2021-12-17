@@ -19,6 +19,20 @@ void CreateSprites(){
   playerExplosion[3] = esat::SubSprite(spritesheet,318,762,69,63);
   disparoEnemigo = esat::SubSprite(spritesheet,267,215,4,12);
   alienAmarillo = esat::SubSprite(spritesheet,9,9,33,33);
+  ascenso_alienAmarillo[0] = esat::SubSprite(spritesheet,315,55,34,34);
+  ascenso_alienAmarillo[1] = esat::SubSprite(ascenso_invertido,62,110,38,35);
+  ascenso_alienAmarillo[2] = esat::SubSprite(ascenso_invertido,114,111,37,37);
+  ascenso_alienAmarillo[3] = esat::SubSprite(ascenso_invertido,165,114,34,34);
+  ascenso_alienAmarillo[4] = esat::SubSprite(ascenso_invertido,216,111,37,37);
+  ascenso_alienAmarillo[5] = esat::SubSprite(ascenso_invertido,270,111,33,37);
+  ascenso_alienAmarillo[6] = esat::SubSprite(ascenso_invertido,10,111,34,34);
+  //ascenso hacia izquierda
+  ascenso_alienAmarillo[7] = esat::SubSprite(spritesheet,261,55,37,34);
+  ascenso_alienAmarillo[8] = esat::SubSprite(spritesheet,210,55,38,37);
+  ascenso_alienAmarillo[9] = esat::SubSprite(spritesheet,163,58,34,34);
+  ascenso_alienAmarillo[10] = esat::SubSprite(spritesheet,109,55,37,37);
+  ascenso_alienAmarillo[11] = esat::SubSprite(spritesheet,58,81,34,37);
+  ascenso_alienAmarillo[12] = esat::SubSprite(spritesheet,313,8,33,34);
   alienRojo = esat::SubSprite(spritesheet,9,114,33,24);
   animacion_alienRojo[0] = esat::SubSprite(spritesheet,60,202,33,24);
   animacion_alienRojo[1] = esat::SubSprite(spritesheet,108,202,33,24);
@@ -35,12 +49,25 @@ void CreateSprites(){
   inclinacion_alienRojo[8] = esat::SubSprite(spritesheet_invertido,169,128,37,37);
   inclinacion_alienRojo[9] = esat::SubSprite(spritesheet_invertido,223,128,30,37);
   inclinacion_alienRojo[10] = esat::SubSprite(spritesheet_invertido,271,128,33,37 );
+  ascenso_alienRojo[0] = esat::SubSprite(spritesheet,9 ,112,34,25);
+  ascenso_alienRojo[1] = esat::SubSprite(spritesheet,57,112,37,31);
+  ascenso_alienRojo[2] = esat::SubSprite(spritesheet,108,109,37,31);
+  ascenso_alienRojo[3] = esat::SubSprite(spritesheet,159,106,37,37);
+  ascenso_alienRojo[4] = esat::SubSprite(spritesheet,213,106,31,37);
+  ascenso_alienRojo[5] = esat::SubSprite(spritesheet,264,106,34,37);
+  ascenso_alienRojo[6] = esat::SubSprite(spritesheet,318,109,25,34);
+  //ascenso hacia izquierda
+  ascenso_alienRojo[7] = esat::SubSprite(ascenso_invertido,263,156,37,31);
+  ascenso_alienRojo[8] = esat::SubSprite(ascenso_invertido,212,156,37,31);
+  ascenso_alienRojo[9] = esat::SubSprite(ascenso_invertido,161,153,37,37);
+  ascenso_alienRojo[10] = esat::SubSprite(ascenso_invertido,113,153 ,31,37);
+  ascenso_alienRojo[11] = esat::SubSprite(ascenso_invertido,59,153,34,37);
+  ascenso_alienRojo[12] = esat::SubSprite(ascenso_invertido,14,156,25,34);
   alienRosa = esat::SubSprite(spritesheet,9,294,33,24);
   animacion_alienRosa[0] = esat::SubSprite(spritesheet,60,382,33,24);
   animacion_alienRosa[1] = esat::SubSprite(spritesheet,108,382,33,24);
   animacion_alienRosa[2] = esat::SubSprite(spritesheet,60,382,33,24);
   animacion_alienRosa[3] = esat::SubSprite(spritesheet,216,382,33,24);
-
   inclinacion_alienRosa[0] = esat::SubSprite(spritesheet,312,343,34,25);
   inclinacion_alienRosa[1] = esat::SubSprite(spritesheet,261,346,36,31);
   inclinacion_alienRosa[2] = esat::SubSprite(spritesheet,211,340,36,30);
@@ -52,12 +79,25 @@ void CreateSprites(){
   inclinacion_alienRosa[8] = esat::SubSprite(spritesheet_invertido,169,180,37,37);
   inclinacion_alienRosa[9] = esat::SubSprite(spritesheet_invertido,223,180,30,37);
   inclinacion_alienRosa[10] = esat::SubSprite(spritesheet_invertido,271,180,33,37 );
+  ascenso_alienRosa[0] = esat::SubSprite(spritesheet,9 ,292,34,25);
+  ascenso_alienRosa[1] = esat::SubSprite(spritesheet,57,289,37,31);
+  ascenso_alienRosa[2] = esat::SubSprite(spritesheet,108,289,37,31);
+  ascenso_alienRosa[3] = esat::SubSprite(spritesheet,159,286,37,37);
+  ascenso_alienRosa[4] = esat::SubSprite(spritesheet,213,286,31,37);
+  ascenso_alienRosa[5] = esat::SubSprite(spritesheet,264,286,34,37);
+  ascenso_alienRosa[6] = esat::SubSprite(spritesheet,318,289,25,34);
+  //ascenso hacia izquierda
+  ascenso_alienRosa[7] = esat::SubSprite(ascenso_invertido,263,194,37,31);
+  ascenso_alienRosa[8] = esat::SubSprite(ascenso_invertido,212,194,37,31);
+  ascenso_alienRosa[9] = esat::SubSprite(ascenso_invertido,161,191,37,37);
+  ascenso_alienRosa[10] = esat::SubSprite(ascenso_invertido,113,191,31,37);
+  ascenso_alienRosa[11] = esat::SubSprite(ascenso_invertido,59,191,34,37);
+  ascenso_alienRosa[12] = esat::SubSprite(ascenso_invertido,14,194,25,34);
   alienVerde = esat::SubSprite(spritesheet,9,474,33,24);
   animacion_alienVerde[0] = esat::SubSprite(spritesheet,60,564,33,24);
   animacion_alienVerde[1] = esat::SubSprite(spritesheet,108,564,33,24);
   animacion_alienVerde[2] = esat::SubSprite(spritesheet,60,564,33,24);
   animacion_alienVerde[3] = esat::SubSprite(spritesheet,216,564,33,24);
-
   ascenso_alienVerde[0] = esat::SubSprite(spritesheet,10,473,33,24);
   ascenso_alienVerde[1] = esat::SubSprite(spritesheet,57,469,37,31);
   ascenso_alienVerde[2] = esat::SubSprite(spritesheet,108,469,37,31);
@@ -72,7 +112,6 @@ void CreateSprites(){
   ascenso_alienVerde[10] = esat::SubSprite(ascenso_invertido,113,232,31,37);
   ascenso_alienVerde[11] = esat::SubSprite(ascenso_invertido,59,232,34,37);
   ascenso_alienVerde[12] = esat::SubSprite(ascenso_invertido,14,235,25,34);
-
   inclinacion_alienVerde[0] = esat::SubSprite(spritesheet,312,523,34,25);
   inclinacion_alienVerde[1] = esat::SubSprite(spritesheet,261,520,36,31);
   inclinacion_alienVerde[2] = esat::SubSprite(spritesheet,211,521,36,30);
@@ -88,11 +127,7 @@ void CreateSprites(){
   explosion_alien[1] = esat::SubSprite(spritesheet,214,653,48,48);
   explosion_alien[2] = esat::SubSprite(spritesheet,262,644,48,48);
   explosion_alien[3] = esat::SubSprite(spritesheet,307,641,48,48);
-
 }
-
-
-
 
 void printScore(int x, int y, int num, RGB color){
   //Convertimos el int a string
@@ -476,7 +511,44 @@ void ReleaseSprites(){
   esat::SpriteRelease(ascenso_alienVerde[9]);
   esat::SpriteRelease(ascenso_alienVerde[10]);
   esat::SpriteRelease(ascenso_alienVerde[12]);
-
-
+  esat::SpriteRelease(ascenso_alienRosa[0]);
+  esat::SpriteRelease(ascenso_alienRosa[1]);
+  esat::SpriteRelease(ascenso_alienRosa[2]);
+  esat::SpriteRelease(ascenso_alienRosa[3]);
+  esat::SpriteRelease(ascenso_alienRosa[4]);
+  esat::SpriteRelease(ascenso_alienRosa[5]);
+  esat::SpriteRelease(ascenso_alienRosa[6]);
+  esat::SpriteRelease(ascenso_alienRosa[7]);
+  esat::SpriteRelease(ascenso_alienRosa[8]);
+  esat::SpriteRelease(ascenso_alienRosa[9]);
+  esat::SpriteRelease(ascenso_alienRosa[10]);
+  esat::SpriteRelease(ascenso_alienRosa[11]);
+  esat::SpriteRelease(ascenso_alienRosa[12]);
+  esat::SpriteRelease(ascenso_alienRojo[0]);
+  esat::SpriteRelease(ascenso_alienRojo[1]);
+  esat::SpriteRelease(ascenso_alienRojo[2]);
+  esat::SpriteRelease(ascenso_alienRojo[3]);
+  esat::SpriteRelease(ascenso_alienRojo[4]);
+  esat::SpriteRelease(ascenso_alienRojo[5]);
+  esat::SpriteRelease(ascenso_alienRojo[6]);
+  esat::SpriteRelease(ascenso_alienRojo[7]);
+  esat::SpriteRelease(ascenso_alienRojo[8]);
+  esat::SpriteRelease(ascenso_alienRojo[9]);
+  esat::SpriteRelease(ascenso_alienRojo[10]);
+  esat::SpriteRelease(ascenso_alienRojo[11]);
+  esat::SpriteRelease(ascenso_alienRojo[12]);
+  esat::SpriteRelease(ascenso_alienAmarillo[0]);
+  esat::SpriteRelease(ascenso_alienAmarillo[1]);
+  esat::SpriteRelease(ascenso_alienAmarillo[2]);
+  esat::SpriteRelease(ascenso_alienAmarillo[3]);
+  esat::SpriteRelease(ascenso_alienAmarillo[4]);
+  esat::SpriteRelease(ascenso_alienAmarillo[5]);
+  esat::SpriteRelease(ascenso_alienAmarillo[6]);
+  esat::SpriteRelease(ascenso_alienAmarillo[7]);
+  esat::SpriteRelease(ascenso_alienAmarillo[8]);
+  esat::SpriteRelease(ascenso_alienAmarillo[9]);
+  esat::SpriteRelease(ascenso_alienAmarillo[10]);
+  esat::SpriteRelease(ascenso_alienAmarillo[11]);
+  esat::SpriteRelease(ascenso_alienAmarillo[12]);
   // esat::SpriteRelease(sprite);
 }

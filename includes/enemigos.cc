@@ -337,14 +337,14 @@ void Ascender(int index){
         esat::DrawSprite(ascenso_alienVerde[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
       break;
       case 'P':
-        esat::DrawSprite(ascenso_alienVerde[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
-       //esat::DrawSprite(ascenso_alienRosa[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
+      //esat::DrawSprite(ascenso_alienVerde[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
+        esat::DrawSprite(ascenso_alienRosa[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
       break;
       case 'R':
-        esat::DrawSprite(ascenso_alienVerde[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
+        esat::DrawSprite(ascenso_alienRojo[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
       break;
       case 'Y':
-        esat::DrawSprite(ascenso_alienVerde[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
+        esat::DrawSprite(ascenso_alienAmarillo[indexSprite], players[player_actual].enemigos[index].ascensoX,players[player_actual].enemigos[index].ascensoY);
       break;
     }
 
@@ -437,7 +437,7 @@ void CalcularDescenso(){
       frecuencia = 1 + rand()%3;
       int random = rand()%251;
       //DEBUG
-      // random = 249;
+      random = 211;
 
       if(random<=frecuencia_verde){
         //Baja un verde
