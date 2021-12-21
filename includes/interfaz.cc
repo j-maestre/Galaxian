@@ -296,8 +296,50 @@ void GameOver(){
     ResetColor(255,178,0);
     esat::DrawText((ANCHO*3)/4 - 20,(ALTO*3)/2,"PUSH ENTER TO NEW GAME");
     if(esat::IsSpecialKeyDown(esat::kSpecialKey_Enter)){
-        interfaz = false;
         //TODO Resetear todas las variables
+        gameOver = false;
+        scoreToGetLive = 7500;
+        scoreToGetLive2 = 7500;
+        N_players = 1;
+        animationSpeed = 3;
+        velocidad_enemigos = 1;
+        velocidad_enemigos_disparo = 8;
+        velocidad_enemigos_descenso = 2,
+        velocidad_enemigos_descenso_x = 4;
+        velocidad_jugador = 5;
+        velocidad_disparo_player = 15;
+        direccion_enemigos = 'R';
+        score_title2_x = 0;
+        cont_score_yellow = 0;
+        fps_count_explosion = 1;
+        indexAtaqueA1 = 0;
+        indexAtaqueA2 = 9;
+        indexAtaqueB1 = 10;
+        indexAtaqueB2 = 19;
+        indexAtaqueC1 = 20;
+        indexAtaqueC2 = 29;
+        indexAtaqueD1 = 30;
+        indexAtaqueD2 = 37;
+        indexAtaqueE1 = 38;
+        indexAtaqueE2 = 43;
+        fila1 = true;
+        fila2 = true;
+        fila3 = true;
+        fila4 = true;
+        fila5 = true;
+        fila6 = true;
+        players_selected = false;
+        interfaz = false;
+        start = false;
+        win = false;
+        gameOver = false;
+        amarilloKill = false;
+        amarilloKilledCount = 1;
+        player_actual = 0;
+        animacion_selector = 0;
+        explosion_selector = 0;
+        score1 = 0;
+        score2 = 0;
     }
     ResetColor();
 }
