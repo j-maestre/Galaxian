@@ -101,7 +101,7 @@ void Disparar(int index){
   }else{
     //Empiezo a disparar
     
-    esat::DrawSprite(disparoEnemigo,players[player_actual].enemigos[index].disparo.x,players[player_actual].enemigos[index].disparo.y+=velocidad_enemigos_disparo);
+    esat::DrawSprite(disparoEnemigo,players[player_actual].enemigos[index].disparo.x,players[player_actual].enemigos[index].disparo.y+=players[player_actual].velocidad_enemigos_disparo);
     if(players[player_actual].enemigos[index].disparo.y>=ALTO*3)players[player_actual].enemigos[index].disparo.disparando=false;
   }
 }
@@ -437,7 +437,7 @@ void CalcularDescenso(){
       frecuencia = 1 + rand()%3;
       int random = rand()%251;
       //DEBUG
-      random = 211;
+      // random = 211;
 
       if(random<=frecuencia_verde){
         //Baja un verde
@@ -643,8 +643,11 @@ void ComprobarFila(){
   if(!players[player_actual].enemigos[38].vivo && !players[player_actual].enemigos[39].vivo && !players[player_actual].enemigos[40].vivo && !players[player_actual].enemigos[41].vivo && !players[player_actual].enemigos[42].vivo && !players[player_actual].enemigos[43].vivo )fila5 = false;
   if(!players[player_actual].enemigos[44].vivo && !players[player_actual].enemigos[45].vivo) fila6 = false;
 
+  //Nivel completamos, generamos uno nuevo y reseteamos las variables necesarias
   if(!fila1 && !fila2 && !fila3 && !fila4 && !fila5 && !fila6){
     players[player_actual].levels++;
+    //Velocidad maxima de disparo de los enemigos alcanzada en el nivel 20
+    if(players[player_actual].velocidad_enemigos_disparo<13)players[player_actual].velocidad_enemigos_disparo+=0.25;
     CreateEnemigos();
     start = false;
     fila1 = true;

@@ -32,9 +32,9 @@ void ResetColor(int r = 255,int g = 255,int b = 255){
 }
 
 
-
 #include "includes/structs.cc"
 #include "includes/variables.cc"
+#include "includes/sprites.cc"
 #include "includes/background.cc"
 #include "includes/player.cc"
 #include "includes/enemigos.cc"

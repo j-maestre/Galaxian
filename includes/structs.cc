@@ -18,7 +18,7 @@ struct Snow{
 struct Explosion{
 	int x = 0;									//Posicion X de la explosion
 	int y = 0;									//Posicion Y de la explosion
-	bool explotando = false;		//Explosion en curso
+	bool explotando = false;					//Explosion en curso
 };
 
 struct Disparo{
@@ -27,13 +27,7 @@ struct Disparo{
 	bool disparando = false;		//Disparo en curso
 
 };
-// Blue Galaxian: 30 points in formation, 60 points in flight
-// Purple Galaxian: 40 points in formation, 80 points in flight
-// Red Galaxian: 50 points in formation, 100 points in flight
-// Flagship: 60 points in formation, 150 points in flight
-// Flagship: 200 points in flight with one escort
-// Flagship: 300 points in flight with two escorts, Flagship killed before both escorts
-// Flagship: 800 points in flight with two escorts, Flagship killed after both escorts
+
 struct Enemigo{
 	int score;									//Puntuacion recibida al matarlo
 	int x;						  				//Posicion X
@@ -59,13 +53,15 @@ struct Enemigo{
 struct Jugador{
 	int x;											//Posicion X
 	int y;											//Posicion Y
-	Disparo disparo;						//Disparo del jugador
-	Explosion explosion;				//Explosion del jugador
-	Enemigo enemigos[46];				//Enemigos que pertenencen al jugador
-	int vidas = 3;							//Vidas disponibles
-	int puntuacion = 0;					//Puntuacion del jugador
-	char direccion = 'R';				//Direccion horizontal en la que se mueve en el momento R|L
-	bool vivo = true;						//Vivo o muerto
-	bool gameOver = false;				//Si hemos perdido una vida
-	int levels = 1;						//Nivel en el que se encuentra
+	Disparo disparo;								//Disparo del jugador
+	Explosion explosion;							//Explosion del jugador
+	Enemigo enemigos[46];							//Enemigos que pertenencen al jugador
+	int vidas = 3;									//Vidas disponibles
+	int puntuacion = 7200;								//Puntuacion del jugador
+	char direccion = 'R';							//Direccion horizontal en la que se mueve en el momento R|L
+	bool vivo = true;								//Vivo o muerto
+	bool gameOver = false;							//Si hemos perdido una vida
+	int levels = 1;									//Nivel en el que se encuentra
+	float velocidad_enemigos_descenso = 2;
+	float velocidad_enemigos_disparo = 8;
 };

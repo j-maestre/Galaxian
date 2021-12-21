@@ -26,19 +26,6 @@ int esat::main(int argc, char **argv) {
     	esat::DrawClear(0,0,0);
 			MoveBackground();
 			Score();
-			esat::DrawSprite(ascenso_alienRosa[0],50,400);
-			esat::DrawSprite(ascenso_alienRosa[1],100,400);
-			esat::DrawSprite(ascenso_alienRosa[2],150,400);
-			esat::DrawSprite(ascenso_alienRosa[3],200,400);
-			esat::DrawSprite(ascenso_alienRosa[4],250,400);
-			esat::DrawSprite(ascenso_alienRosa[5],300,400);
-			esat::DrawSprite(ascenso_alienRosa[6],350,400);
-			esat::DrawSprite(ascenso_alienRosa[7],400,400);
-			esat::DrawSprite(ascenso_alienRosa[8],450,400);
-			esat::DrawSprite(ascenso_alienRosa[9],500,400);
-			esat::DrawSprite(ascenso_alienRosa[10],550,400);
-			esat::DrawSprite(ascenso_alienRosa[11],600,400);
-			esat::DrawSprite(ascenso_alienRosa[12],650,400);
 			if(!interfaz){
 				interfaz = Interfaz();
 				//Credits(&credits);
@@ -95,6 +82,12 @@ int esat::main(int argc, char **argv) {
 						players[player_actual].y = 600;
 
 					}
+					if(score1 >= scoreToGetLive || score2 >= scoreToGetLive2){
+							players[player_actual].vidas++;
+							player_actual==0?scoreToGetLive+=7500:scoreToGetLive2+=7500;
+
+						}
+					
 				}
 
 			}
